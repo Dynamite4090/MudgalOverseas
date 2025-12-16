@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Window from './Window'
 import Clock from './Clock'
-import { FolderIcon, PlayIcon, MessageSquareIcon, FileTextIcon } from './Icons'
-import { ProductOS, PancakeVideo, TalkToHuman, ChangeLog } from './apps'
+import { FolderIcon, PlayIcon, MessageSquareIcon, FileTextIcon, UsersIcon } from './Icons'
+import { ProductOS, PancakeVideo, TalkToHuman, ChangeLog, Team } from './apps'
 
 /**
  * Desktop icon configuration
@@ -11,6 +11,7 @@ const DESKTOP_ICONS = [
   { id: 'product-os', name: 'Game OS', icon: FolderIcon, color: 'text-accent-yellow' },
   { id: 'pancake', name: 'pancake.mov', icon: PlayIcon, color: 'text-accent-red' },
   { id: 'talk', name: 'Talk to Human', icon: MessageSquareIcon, color: 'text-accent-cyan' },
+  { id: 'team', name: 'Team', icon: UsersIcon, color: 'text-accent-green' },
   { id: 'changelog', name: 'Change Log', icon: FileTextIcon, color: 'text-accent-purple' },
 ]
 
@@ -37,6 +38,11 @@ const WINDOW_CONFIGS = {
     title: 'changelog.txt', 
     component: ChangeLog, 
     size: { width: 500, height: 450 } 
+  },
+  'team': { 
+    title: 'Team', 
+    component: Team, 
+    size: { width: 450, height: 500 } 
   },
 }
 

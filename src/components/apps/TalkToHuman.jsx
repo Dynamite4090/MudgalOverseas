@@ -1,116 +1,170 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { SendIcon } from '../Icons'
 
 /**
- * Initial messages displayed when the chat opens
+ * Role options for the dropdown
  */
-const INITIAL_MESSAGES = [
-  { from: 'system', text: '// ESTABLISHING SECURE CHANNEL...' },
-  { from: 'system', text: '// CONNECTION ESTABLISHED.' },
-  { from: 'bot', text: 'Hey there! 👋 Thanks for reaching out to MudgalOverseas.' },
-  { from: 'bot', text: "We're probably busy making games, but leave a message and we'll get back to you!" },
-]
-
-/**
- * Bot response messages (randomly selected)
- */
-const BOT_RESPONSES = [
-  'Message received! A human will respond soon. In the meantime, check out our games! 🎮',
-  'Thanks for reaching out! Someone from the team will get back to you shortly. 🚀',
-  "Got it! We're in the middle of a boss battle, but we'll respond ASAP! ⚔️",
+const ROLE_OPTIONS = [
+  'Select role',
+  'Game Developer',
+  'Publisher',
+  'Investor',
+  'Content Creator',
+  'Student',
+  'Other',
 ]
 
 /**
  * TalkToHuman Component
- * A retro-styled chat interface for contact
+ * A contact form interface styled like a mail client
  */
 function TalkToHuman() {
-  const [messages, setMessages] = useState(INITIAL_MESSAGES)
-  const [input, setInput] = useState('')
-  const messagesEndRef = useRef(null)
+  const [formData, setFormData] = useState({
+    email: '',
+    company: '',
+    role: '',
+    favoriteGame: '',
+    heardFrom: '',
+    message: '',
+  })
+  const [submitted, setSubmitted] = useState(false)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
-  const handleSend = () => {
-    if (!input.trim()) return
-    
-    // Add user message
-    setMessages(prev => [...prev, { from: 'user', text: input }])
-    setInput('')
-
-    // Simulate bot response
-    setTimeout(() => {
-      const randomResponse = BOT_RESPONSES[Math.floor(Math.random() * BOT_RESPONSES.length)]
-      setMessages(prev => [...prev, { from: 'bot', text: randomResponse }])
-    }, 1000)
+  const handleSubmit = () => {
+    // Simulate form submission
+    setSubmitted(true)
+    setTimeout(() => setSubmitted(false), 3000)
   }
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSend()
-    }
-  }
-
-  const getMessageStyle = (from) => {
-    switch (from) {
-      case 'system':
-        return 'text-slate-600 font-mono text-xs'
-      case 'user':
-        return 'ml-auto bg-accent-blue/20 text-accent-blue max-w-[80%] p-3 rounded-lg rounded-br-none'
-      case 'bot':
-        return 'bg-slate-800 text-slate-300 max-w-[80%] p-3 rounded-lg rounded-bl-none'
-      default:
-        return ''
-    }
-  }
+  const inputClass = "w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue transition-colors"
 
   return (
     <div className="h-full flex flex-col bg-slate-950">
-      {/* Header */}
-      <div className="p-4 border-b border-slate-800 bg-slate-900">
-        <div className="flex items-center gap-3">
-          <div className="w-3 h-3 rounded-full bg-accent-green pulse" />
-          <span className="text-slate-300 font-mono">HUMAN_INTERFACE_v2</span>
-        </div>
+      {/* Header with Send Button */}
+      <div className="p-3 border-b border-slate-800 bg-slate-900">
+        <button
+          onClick={handleSubmit}
+          className="flex items-center gap-2 px-4 py-2 bg-accent-yellow/20 hover:bg-accent-yellow/30 border border-accent-yellow/50 rounded text-accent-yellow font-mono text-sm transition-colors"
+        >
+          <SendIcon className="w-4 h-4" />
+          Send
+        </button>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-auto p-4 space-y-3">
-        {messages.map((msg, i) => (
-          <div key={i} className={getMessageStyle(msg.from)}>
-            {msg.text}
+      {/* Form Content */}
+      <div className="flex-1 overflow-auto p-4">
+        {submitted ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <div className="text-4xl mb-4">✉️</div>
+              <p className="text-accent-green font-mono">Message sent successfully!</p>
+              <p className="text-slate-500 text-sm mt-2">We'll get back to you soon.</p>
+            </div>
           </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
+        ) : (
+          <div className="space-y-4">
+            {/* To Field */}
+            <div className="flex items-center gap-4">
+              <label className="text-slate-400 font-mono text-sm w-32 shrink-0">To</label>
+              <span className="text-slate-300">contact@mudgaloverseas.dev</span>
+            </div>
 
-      {/* Input */}
-      <div className="p-4 border-t border-slate-800 bg-slate-900">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Type your message..."
-            className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-accent-blue transition-colors"
-          />
-          <button
-            onClick={handleSend}
-            className="px-4 py-2 bg-accent-blue/20 hover:bg-accent-blue/30 border border-accent-blue/50 rounded-lg text-accent-blue transition-colors"
-          >
-            <SendIcon />
-          </button>
-        </div>
-        <p className="text-slate-600 text-xs mt-2 font-mono">
-          // Or email: hello@mudgaloverseas.dev
-        </p>
+            {/* Email Field */}
+            <div className="flex items-center gap-4">
+              <label className="text-slate-400 font-mono text-sm w-32 shrink-0">
+                Your email <span className="text-accent-yellow">*</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Your email"
+                className={inputClass}
+              />
+            </div>
+
+            {/* Company Field */}
+            <div className="flex items-center gap-4">
+              <label className="text-slate-400 font-mono text-sm w-32 shrink-0">
+                Company <span className="text-accent-yellow">*</span>
+              </label>
+              <input
+                type="text"
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
+                placeholder="Company"
+                className={inputClass}
+              />
+            </div>
+
+            {/* Role Field */}
+            <div className="flex items-center gap-4">
+              <label className="text-slate-400 font-mono text-sm w-32 shrink-0">
+                Role <span className="text-accent-yellow">*</span>
+              </label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className={`${inputClass} cursor-pointer`}
+              >
+                {ROLE_OPTIONS.map((role, i) => (
+                  <option key={i} value={i === 0 ? '' : role} disabled={i === 0}>
+                    {role}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Favorite Game Field */}
+            <div className="flex items-center gap-4">
+              <label className="text-slate-400 font-mono text-sm w-32 shrink-0">
+                Favorite game <span className="text-accent-yellow">*</span>
+              </label>
+              <input
+                type="text"
+                name="favoriteGame"
+                value={formData.favoriteGame}
+                onChange={handleChange}
+                placeholder="Your favorite game"
+                className={inputClass}
+              />
+            </div>
+
+            {/* Heard From Field */}
+            <div className="flex items-center gap-4">
+              <label className="text-slate-400 font-mono text-sm w-32 shrink-0">
+                Where did you<br/>hear about us?
+              </label>
+              <input
+                type="text"
+                name="heardFrom"
+                value={formData.heardFrom}
+                onChange={handleChange}
+                placeholder="Where did you hear about us?"
+                className={inputClass}
+              />
+            </div>
+
+            {/* Message Field */}
+            <div className="pt-2">
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="What do you want to talk about?"
+                rows={6}
+                className={`${inputClass} resize-none`}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
