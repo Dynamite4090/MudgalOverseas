@@ -5,28 +5,22 @@ import { GamepadIcon } from '../Icons'
  */
 const GAMES = [
   { 
-    name: 'Project Nebula', 
+    name: 'Project Pancake', 
     status: 'In Development', 
     statusColor: 'accent-yellow', 
-    description: 'A space exploration roguelike with procedural galaxies.' 
+    description: 'A deliciously chaotic cooking adventure game.' 
   },
   { 
-    name: 'Pixel Dungeons', 
-    status: 'Released', 
-    statusColor: 'accent-green', 
-    description: 'Classic dungeon crawler with modern mechanics.' 
-  },
-  { 
-    name: 'Neon Drift', 
+    name: 'Burger Truck Simulator', 
     status: 'Coming Soon', 
     statusColor: 'accent-purple', 
-    description: 'Synthwave racing through cyberpunk cityscapes.' 
+    description: 'Run your own food truck empire across the city.' 
   },
   { 
-    name: 'Echoes of Time', 
-    status: 'Prototype', 
+    name: 'Bullet Boi', 
+    status: 'In Development', 
     statusColor: 'accent-cyan', 
-    description: 'Time-loop puzzle platformer.' 
+    description: 'Fast-paced bullet hell action with style.' 
   },
 ]
 
@@ -50,7 +44,7 @@ function ProductOS() {
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
         <GamepadIcon />
-        <h2 className="text-xl font-bold text-slate-200">Product Catalog</h2>
+        <h2 className="text-xl font-bold text-slate-200">Game Catalog</h2>
       </div>
 
       {/* Game List */}
@@ -74,7 +68,7 @@ function ProductOS() {
       {/* Footer Stats */}
       <div className="mt-6 pt-4 border-t border-slate-700">
         <p className="text-slate-500 text-xs font-mono">
-          // Total Projects: {GAMES.length} | Active Development: 2
+          // Total Games: {GAMES.length} | Active Development: 2
         </p>
       </div>
     </div>

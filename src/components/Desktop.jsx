@@ -8,7 +8,7 @@ import { ProductOS, PancakeVideo, TalkToHuman, ChangeLog } from './apps'
  * Desktop icon configuration
  */
 const DESKTOP_ICONS = [
-  { id: 'product-os', name: 'Product OS', icon: FolderIcon, color: 'text-accent-yellow' },
+  { id: 'product-os', name: 'Game OS', icon: FolderIcon, color: 'text-accent-yellow' },
   { id: 'pancake', name: 'pancake.mov', icon: PlayIcon, color: 'text-accent-red' },
   { id: 'talk', name: 'Talk to Human', icon: MessageSquareIcon, color: 'text-accent-cyan' },
   { id: 'changelog', name: 'Change Log', icon: FileTextIcon, color: 'text-accent-purple' },
@@ -19,7 +19,7 @@ const DESKTOP_ICONS = [
  */
 const WINDOW_CONFIGS = {
   'product-os': { 
-    title: 'Product OS', 
+    title: 'Game OS', 
     component: ProductOS, 
     size: { width: 500, height: 450 } 
   },
