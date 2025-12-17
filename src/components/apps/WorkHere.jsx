@@ -183,6 +183,16 @@ function WorkHere() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedJob, setSelectedJob] = useState(JOB_CATEGORIES[0].jobs[0])
   const [selectedCategory, setSelectedCategory] = useState(null)
+  const [showApplyModal, setShowApplyModal] = useState(false)
+  const [applicationData, setApplicationData] = useState({
+    name: '',
+    email: '',
+    portfolio: '',
+    experience: '',
+    coverLetter: '',
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null)
 
   // Filter jobs based on search
   const filteredCategories = JOB_CATEGORIES.map(category => ({
@@ -194,6 +204,32 @@ function WorkHere() {
   })).filter(category => 
     selectedCategory ? category.name === selectedCategory : true
   ).filter(category => category.jobs.length > 0)
+
+  // Handle application submission
+  const handleApply = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    // Simulate submission delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    // For now, just show success (you can integrate with email/backend later)
+    setSubmitStatus('success')
+    setApplicationData({
+      name: '',
+      email: '',
+      portfolio: '',
+      experience: '',
+      coverLetter: '',
+    })
+    setTimeout(() => {
+      setShowApplyModal(false)
+      setSubmitStatus(null)
+    }, 2000)
+    
+    setIsSubmitting(false)
+  }
 
   return (
     <div className="h-full bg-slate-950 overflow-auto">
@@ -299,7 +335,10 @@ function WorkHere() {
               </div>
 
               {/* Apply Button */}
-              <button className="px-6 py-3 bg-accent-blue hover:bg-accent-blue/80 text-white font-medium rounded-lg transition-colors">
+              <button 
+                onClick={() => setShowApplyModal(true)}
+                className="px-6 py-3 bg-accent-blue hover:bg-accent-blue/80 text-white font-medium rounded-lg transition-colors"
+              >
                 Apply for this role
               </button>
             </>
@@ -362,6 +401,131 @@ function WorkHere() {
           </div>
         </div>
       </div>
+
+      {/* Apply Modal */}
+      {showApplyModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-slate-900 border border-slate-700 rounded-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b border-slate-700">
+              <div>
+                <h3 className="text-lg font-semibold text-white">Apply for {selectedJob?.title}</h3>
+                <p className="text-sm text-slate-500">Fill out the form below</p>
+              </div>
+              <button 
+                onClick={() => setShowApplyModal(false)}
+                className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-slate-400 hover:text-white"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <form onSubmit={handleApply} className="p-4 space-y-4">
+              {submitStatus === 'success' ? (
+                <div className="text-center py-8">
+                  <div className="text-4xl mb-4">🎉</div>
+                  <p className="text-accent-green font-medium">Application submitted!</p>
+                  <p className="text-slate-500 text-sm mt-2">We'll be in touch soon.</p>
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-400 mb-1">Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={applicationData.name}
+                      onChange={(e) => setApplicationData(prev => ({ ...prev, name: e.target.value }))}
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue"
+                      placeholder="John Doe"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-400 mb-1">Email *</label>
+                    <input
+                      type="email"
+                      required
+                      value={applicationData.email}
+                      onChange={(e) => setApplicationData(prev => ({ ...prev, email: e.target.value }))}
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue"
+                      placeholder="john@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-400 mb-1">Portfolio / LinkedIn URL</label>
+                    <input
+                      type="url"
+                      value={applicationData.portfolio}
+                      onChange={(e) => setApplicationData(prev => ({ ...prev, portfolio: e.target.value }))}
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue"
+                      placeholder="https://..."
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-400 mb-1">Years of Experience</label>
+                    <select
+                      value={applicationData.experience}
+                      onChange={(e) => setApplicationData(prev => ({ ...prev, experience: e.target.value }))}
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-accent-blue"
+                    >
+                      <option value="">Select...</option>
+                      <option value="0-1">0-1 years</option>
+                      <option value="1-3">1-3 years</option>
+                      <option value="3-5">3-5 years</option>
+                      <option value="5+">5+ years</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-400 mb-1">Why do you want to join? *</label>
+                    <textarea
+                      required
+                      rows={4}
+                      value={applicationData.coverLetter}
+                      onChange={(e) => setApplicationData(prev => ({ ...prev, coverLetter: e.target.value }))}
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue resize-none"
+                      placeholder="Tell us about yourself and why you'd be a great fit..."
+                    />
+                  </div>
+
+                  {submitStatus === 'error' && (
+                    <div className="p-3 bg-accent-red/10 border border-accent-red/50 rounded-lg text-accent-red text-sm">
+                      Failed to submit application. Please try again.
+                    </div>
+                  )}
+
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowApplyModal(false)}
+                      className="flex-1 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                        isSubmitting 
+                          ? 'bg-slate-700 text-slate-400 cursor-not-allowed' 
+                          : 'bg-accent-blue hover:bg-accent-blue/80 text-white'
+                      }`}
+                    >
+                      {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                    </button>
+                  </div>
+                </>
+              )}
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
