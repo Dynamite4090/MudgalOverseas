@@ -83,6 +83,13 @@ export const UsersIcon = ({ className = "w-8 h-8" }) => (
   </svg>
 )
 
+export const BriefcaseIcon = ({ className = "w-8 h-8" }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+  </svg>
+)
+
 // Default export with all icons
 const Icons = {
   Folder: FolderIcon,
@@ -96,6 +103,7 @@ const Icons = {
   Gamepad: GamepadIcon,
   Send: SendIcon,
   Users: UsersIcon,
+  Briefcase: BriefcaseIcon,
 }
 
 export default Icons

@@ -2,8 +2,8 @@ import { useState } from 'react'
 import Window from './Window'
 import Clock from './Clock'
 import Office3D from './Office3D'
-import { FolderIcon, PlayIcon, MessageSquareIcon, FileTextIcon, UsersIcon } from './Icons'
-import { ProductOS, PancakeVideo, TalkToHuman, ChangeLog, Team } from './apps'
+import { FolderIcon, PlayIcon, MessageSquareIcon, FileTextIcon, UsersIcon, BriefcaseIcon } from './Icons'
+import { ProductOS, PancakeVideo, TalkToHuman, ChangeLog, Team, WorkHere } from './apps'
 
 /**
  * Desktop icon configuration
@@ -13,6 +13,7 @@ const DESKTOP_ICONS = [
   { id: 'pancake', name: 'pancake.mov', icon: PlayIcon, color: 'text-accent-red' },
   { id: 'talk', name: 'Talk to Human', icon: MessageSquareIcon, color: 'text-accent-cyan' },
   { id: 'team', name: 'Team', icon: UsersIcon, color: 'text-accent-green' },
+  { id: 'workhere', name: 'Work Here', icon: BriefcaseIcon, color: 'text-accent-blue' },
   { id: 'changelog', name: 'Change Log', icon: FileTextIcon, color: 'text-accent-purple' },
 ]
 
@@ -44,6 +45,11 @@ const WINDOW_CONFIGS = {
     title: 'Team', 
     component: Team, 
     size: { width: 450, height: 500 } 
+  },
+  'workhere': { 
+    title: 'Careers - Work Here', 
+    component: WorkHere, 
+    size: { width: 900, height: 600 } 
   },
 }
 
