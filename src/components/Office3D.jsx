@@ -4,13 +4,13 @@ import { OrbitControls, Float, Environment } from '@react-three/drei'
 import * as THREE from 'three'
 
 /**
- * Floor Component
+ * Floor Component - Snowy floor for Christmas
  */
 function Floor() {
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]} receiveShadow>
       <planeGeometry args={[20, 20]} />
-      <meshStandardMaterial color="#1a1a2e" metalness={0.3} roughness={0.8} />
+      <meshStandardMaterial color="#e8f0f8" metalness={0.1} roughness={0.9} />
     </mesh>
   )
 }
@@ -196,21 +196,22 @@ function Character({ position, type = 'cat', color = '#f5f5f5' }) {
 }
 
 /**
- * Floating Particles
+ * Floating Particles - Snowflakes for Christmas
  */
 function Particles() {
   const particlesRef = useRef()
   
   const particles = useMemo(() => {
     const temp = []
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       temp.push({
         position: [
-          (Math.random() - 0.5) * 15,
-          Math.random() * 5,
-          (Math.random() - 0.5) * 15,
+          (Math.random() - 0.5) * 20,
+          Math.random() * 8 + 2,
+          (Math.random() - 0.5) * 20,
         ],
-        speed: Math.random() * 0.5 + 0.2,
+        speed: Math.random() * 0.5 + 0.3,
+        size: Math.random() * 0.03 + 0.02,
       })
     }
     return temp
@@ -219,7 +220,16 @@ function Particles() {
   useFrame((state) => {
     if (particlesRef.current) {
       particlesRef.current.children.forEach((particle, i) => {
-        particle.position.y += Math.sin(state.clock.elapsedTime * particles[i].speed) * 0.002
+        // Falling snow effect
+        particle.position.y -= particles[i].speed * 0.02
+        particle.position.x += Math.sin(state.clock.elapsedTime + i) * 0.002
+        
+        // Reset snow when it falls below ground
+        if (particle.position.y < -0.5) {
+          particle.position.y = 8
+          particle.position.x = (Math.random() - 0.5) * 20
+          particle.position.z = (Math.random() - 0.5) * 20
+        }
       })
     }
   })
@@ -228,14 +238,257 @@ function Particles() {
     <group ref={particlesRef}>
       {particles.map((p, i) => (
         <mesh key={i} position={p.position}>
-          <sphereGeometry args={[0.02, 8, 8]} />
+          <sphereGeometry args={[p.size, 8, 8]} />
           <meshStandardMaterial 
-            color={['#7aa2f7', '#bb9af7', '#9ece6a', '#7dcfff'][i % 4]} 
-            emissive={['#7aa2f7', '#bb9af7', '#9ece6a', '#7dcfff'][i % 4]}
-            emissiveIntensity={0.5}
+            color="#ffffff"
+            emissive="#ffffff"
+            emissiveIntensity={0.3}
             transparent
-            opacity={0.6}
+            opacity={0.9}
           />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+/**
+ * Christmas Tree Component
+ */
+function ChristmasTree({ position, scale = 1 }) {
+  const lightsRef = useRef()
+  
+  useFrame((state) => {
+    if (lightsRef.current) {
+      lightsRef.current.children.forEach((light, i) => {
+        light.material.emissiveIntensity = 0.5 + Math.sin(state.clock.elapsedTime * 3 + i) * 0.3
+      })
+    }
+  })
+  
+  return (
+    <group position={position} scale={scale}>
+      {/* Tree trunk */}
+      <mesh position={[0, 0.2, 0]} castShadow>
+        <cylinderGeometry args={[0.15, 0.2, 0.4, 8]} />
+        <meshStandardMaterial color="#5c3d2e" />
+      </mesh>
+      
+      {/* Tree layers */}
+      <mesh position={[0, 0.7, 0]} castShadow>
+        <coneGeometry args={[0.8, 1, 8]} />
+        <meshStandardMaterial color="#1a5c32" />
+      </mesh>
+      <mesh position={[0, 1.3, 0]} castShadow>
+        <coneGeometry args={[0.6, 0.9, 8]} />
+        <meshStandardMaterial color="#1f6b3a" />
+      </mesh>
+      <mesh position={[0, 1.8, 0]} castShadow>
+        <coneGeometry args={[0.4, 0.7, 8]} />
+        <meshStandardMaterial color="#247a42" />
+      </mesh>
+      
+      {/* Star on top */}
+      <mesh position={[0, 2.3, 0]} rotation={[0, 0, Math.PI / 4]}>
+        <octahedronGeometry args={[0.15]} />
+        <meshStandardMaterial color="#ffd700" emissive="#ffd700" emissiveIntensity={0.8} />
+      </mesh>
+      
+      {/* Christmas lights */}
+      <group ref={lightsRef}>
+        {[
+          [0.5, 0.5, 0.3, '#ff0000'],
+          [-0.4, 0.6, 0.4, '#00ff00'],
+          [0.3, 0.9, -0.3, '#0000ff'],
+          [-0.3, 1.1, 0.3, '#ffff00'],
+          [0.2, 1.4, 0.2, '#ff00ff'],
+          [-0.2, 1.6, -0.2, '#00ffff'],
+          [0.15, 1.9, 0.1, '#ff0000'],
+        ].map((light, i) => (
+          <mesh key={i} position={[light[0], light[1], light[2]]}>
+            <sphereGeometry args={[0.05, 8, 8]} />
+            <meshStandardMaterial 
+              color={light[3]} 
+              emissive={light[3]} 
+              emissiveIntensity={0.5}
+            />
+          </mesh>
+        ))}
+      </group>
+      
+      {/* Ornaments */}
+      {[
+        [0.4, 0.7, 0.2, '#ff4444'],
+        [-0.35, 0.8, 0.3, '#4444ff'],
+        [0.25, 1.2, -0.2, '#ffd700'],
+        [-0.2, 1.5, 0.15, '#ff44ff'],
+      ].map((ornament, i) => (
+        <mesh key={i} position={[ornament[0], ornament[1], ornament[2]]} castShadow>
+          <sphereGeometry args={[0.08, 16, 16]} />
+          <meshStandardMaterial color={ornament[3]} metalness={0.8} roughness={0.2} />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+/**
+ * Gift Box Component
+ */
+function GiftBox({ position, color = '#ff0000', ribbonColor = '#ffd700', scale = 1 }) {
+  return (
+    <group position={position} scale={scale}>
+      {/* Box */}
+      <mesh castShadow>
+        <boxGeometry args={[0.3, 0.25, 0.3]} />
+        <meshStandardMaterial color={color} />
+      </mesh>
+      {/* Ribbon horizontal */}
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.32, 0.05, 0.08]} />
+        <meshStandardMaterial color={ribbonColor} metalness={0.5} />
+      </mesh>
+      {/* Ribbon vertical */}
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[0.08, 0.27, 0.32]} />
+        <meshStandardMaterial color={ribbonColor} metalness={0.5} />
+      </mesh>
+      {/* Bow */}
+      <mesh position={[0, 0.15, 0]} rotation={[0, Math.PI / 4, 0]}>
+        <torusGeometry args={[0.06, 0.02, 8, 16]} />
+        <meshStandardMaterial color={ribbonColor} metalness={0.5} />
+      </mesh>
+    </group>
+  )
+}
+
+/**
+ * Candy Cane Component
+ */
+function CandyCane({ position, rotation = [0, 0, 0] }) {
+  return (
+    <group position={position} rotation={rotation}>
+      {/* Straight part */}
+      <mesh castShadow>
+        <cylinderGeometry args={[0.03, 0.03, 0.5, 8]} />
+        <meshStandardMaterial color="#ff0000" />
+      </mesh>
+      {/* Stripe */}
+      <mesh position={[0, 0.1, 0.001]}>
+        <cylinderGeometry args={[0.035, 0.035, 0.08, 8]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      <mesh position={[0, -0.1, 0.001]}>
+        <cylinderGeometry args={[0.035, 0.035, 0.08, 8]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      {/* Curved hook */}
+      <mesh position={[0.08, 0.28, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <torusGeometry args={[0.08, 0.03, 8, 16, Math.PI]} />
+        <meshStandardMaterial color="#ff0000" />
+      </mesh>
+    </group>
+  )
+}
+
+/**
+ * Christmas Lights String Component
+ */
+function ChristmasLights({ startPos, endPos, segments = 10 }) {
+  const lightsRef = useRef()
+  
+  const lightPositions = useMemo(() => {
+    const positions = []
+    for (let i = 0; i <= segments; i++) {
+      const t = i / segments
+      const x = startPos[0] + (endPos[0] - startPos[0]) * t
+      const y = startPos[1] - Math.sin(t * Math.PI) * 0.3 // Sagging effect
+      const z = startPos[2] + (endPos[2] - startPos[2]) * t
+      positions.push([x, y, z])
+    }
+    return positions
+  }, [startPos, endPos, segments])
+  
+  useFrame((state) => {
+    if (lightsRef.current) {
+      lightsRef.current.children.forEach((light, i) => {
+        light.material.emissiveIntensity = 0.3 + Math.sin(state.clock.elapsedTime * 4 + i * 0.5) * 0.4
+      })
+    }
+  })
+  
+  const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+  
+  return (
+    <group ref={lightsRef}>
+      {lightPositions.map((pos, i) => (
+        <mesh key={i} position={pos}>
+          <sphereGeometry args={[0.04, 8, 8]} />
+          <meshStandardMaterial 
+            color={colors[i % colors.length]}
+            emissive={colors[i % colors.length]}
+            emissiveIntensity={0.5}
+          />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+/**
+ * Snowman Component
+ */
+function Snowman({ position }) {
+  return (
+    <group position={position}>
+      {/* Bottom ball */}
+      <mesh position={[0, 0.3, 0]} castShadow>
+        <sphereGeometry args={[0.35, 16, 16]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      {/* Middle ball */}
+      <mesh position={[0, 0.75, 0]} castShadow>
+        <sphereGeometry args={[0.25, 16, 16]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      {/* Head */}
+      <mesh position={[0, 1.1, 0]} castShadow>
+        <sphereGeometry args={[0.18, 16, 16]} />
+        <meshStandardMaterial color="#ffffff" />
+      </mesh>
+      {/* Carrot nose */}
+      <mesh position={[0, 1.1, 0.18]} rotation={[Math.PI / 2, 0, 0]}>
+        <coneGeometry args={[0.03, 0.15, 8]} />
+        <meshStandardMaterial color="#ff6b35" />
+      </mesh>
+      {/* Eyes */}
+      <mesh position={[-0.06, 1.15, 0.15]}>
+        <sphereGeometry args={[0.025, 8, 8]} />
+        <meshStandardMaterial color="#1a1a2e" />
+      </mesh>
+      <mesh position={[0.06, 1.15, 0.15]}>
+        <sphereGeometry args={[0.025, 8, 8]} />
+        <meshStandardMaterial color="#1a1a2e" />
+      </mesh>
+      {/* Hat */}
+      <mesh position={[0, 1.3, 0]} castShadow>
+        <cylinderGeometry args={[0.12, 0.12, 0.25, 8]} />
+        <meshStandardMaterial color="#1a1a2e" />
+      </mesh>
+      <mesh position={[0, 1.18, 0]} castShadow>
+        <cylinderGeometry args={[0.2, 0.2, 0.03, 8]} />
+        <meshStandardMaterial color="#1a1a2e" />
+      </mesh>
+      {/* Scarf */}
+      <mesh position={[0, 0.9, 0.05]} rotation={[0.2, 0, 0]}>
+        <boxGeometry args={[0.35, 0.08, 0.08]} />
+        <meshStandardMaterial color="#ff0000" />
+      </mesh>
+      {/* Buttons */}
+      {[0.65, 0.75, 0.85].map((y, i) => (
+        <mesh key={i} position={[0, y, 0.23]}>
+          <sphereGeometry args={[0.025, 8, 8]} />
+          <meshStandardMaterial color="#1a1a2e" />
         </mesh>
       ))}
     </group>
@@ -300,43 +553,70 @@ function WindowPanel({ position, rotation = [0, 0, 0] }) {
 }
 
 /**
- * Main 3D Scene
+ * Main 3D Scene - Christmas Theme
  */
 function Scene() {
   return (
     <>
-      {/* Lighting */}
-      <ambientLight intensity={0.4} />
+      {/* Lighting - Warmer Christmas lighting */}
+      <ambientLight intensity={0.5} color="#ffe4c4" />
       <directionalLight 
         position={[5, 8, 5]} 
-        intensity={0.8} 
+        intensity={0.6} 
         castShadow
         shadow-mapSize={[2048, 2048]}
+        color="#fff5e6"
       />
-      <pointLight position={[-3, 3, 0]} intensity={0.3} color="#7aa2f7" />
-      <pointLight position={[3, 3, 0]} intensity={0.3} color="#bb9af7" />
+      <pointLight position={[-3, 3, 0]} intensity={0.4} color="#ff4444" />
+      <pointLight position={[3, 3, 0]} intensity={0.4} color="#44ff44" />
+      <pointLight position={[0, 4, -3]} intensity={0.3} color="#ffd700" />
       
-      {/* Floor */}
+      {/* Floor - Snowy */}
       <Floor />
       
-      {/* Desks with characters */}
-      <Desk position={[-2.5, 0, -1]} monitorColor="#7aa2f7" />
+      {/* Christmas Trees */}
+      <ChristmasTree position={[-4, -0.5, -3]} scale={1.2} />
+      <ChristmasTree position={[4, -0.5, -3]} scale={1} />
+      <ChristmasTree position={[0, -0.5, 4]} scale={0.8} />
+      
+      {/* Snowman */}
+      <Snowman position={[-3, -0.5, 2]} />
+      
+      {/* Gift Boxes */}
+      <GiftBox position={[-3.5, -0.35, -2.5]} color="#ff0000" ribbonColor="#ffd700" scale={0.8} />
+      <GiftBox position={[-4.3, -0.35, -2.8]} color="#00aa00" ribbonColor="#ff0000" scale={0.6} />
+      <GiftBox position={[-3.8, -0.35, -3.3]} color="#0066ff" ribbonColor="#ffffff" scale={0.7} />
+      <GiftBox position={[3.5, -0.35, -2.5]} color="#ff00ff" ribbonColor="#00ff00" scale={0.8} />
+      <GiftBox position={[4.2, -0.35, -2.3]} color="#ffaa00" ribbonColor="#ff0000" scale={0.5} />
+      
+      {/* Candy Canes */}
+      <CandyCane position={[-4.5, 0, -2]} rotation={[0, 0, 0.3]} />
+      <CandyCane position={[4.5, 0, -2]} rotation={[0, 0, -0.3]} />
+      
+      {/* Christmas Lights Strings */}
+      <ChristmasLights startPos={[-5, 3, -4]} endPos={[5, 3, -4]} segments={15} />
+      <ChristmasLights startPos={[-5, 2.5, 4]} endPos={[5, 2.5, 4]} segments={12} />
+      <ChristmasLights startPos={[-5, 3, -2]} endPos={[-5, 3, 4]} segments={10} />
+      <ChristmasLights startPos={[5, 3, -2]} endPos={[5, 3, 4]} segments={10} />
+      
+      {/* Desks with characters - festive monitor colors */}
+      <Desk position={[-2.5, 0, -1]} monitorColor="#ff4444" />
       <Chair position={[-2.5, 0, -0.3]} />
       <Character position={[-2.5, 0.7, -0.3]} type="cat" />
       
-      <Desk position={[0, 0, -1.5]} monitorColor="#9ece6a" />
+      <Desk position={[0, 0, -1.5]} monitorColor="#44ff44" />
       <Chair position={[0, 0, -0.8]} />
       <Character position={[0, 0.7, -0.8]} type="panda" />
       
-      <Desk position={[2.5, 0, -1]} monitorColor="#bb9af7" />
+      <Desk position={[2.5, 0, -1]} monitorColor="#ffd700" />
       <Chair position={[2.5, 0, -0.3]} />
       <Character position={[2.5, 0.7, -0.3]} type="dog" />
       
-      <Desk position={[-1.5, 0, 1.5]} monitorColor="#7dcfff" />
+      <Desk position={[-1.5, 0, 1.5]} monitorColor="#ff4444" />
       <Chair position={[-1.5, 0, 2.2]} />
       <Character position={[-1.5, 0.7, 2.2]} type="penguin" />
       
-      <Desk position={[1.5, 0, 1.5]} monitorColor="#f7768e" />
+      <Desk position={[1.5, 0, 1.5]} monitorColor="#44ff44" />
       <Chair position={[1.5, 0, 2.2]} />
       <Character position={[1.5, 0.7, 2.2]} type="fox" />
       
@@ -345,22 +625,15 @@ function Scene() {
       <CubicleWall position={[1.2, 0.1, -0.5]} rotation={[0, -Math.PI / 4, 0]} />
       <CubicleWall position={[0, 0.1, 0.5]} rotation={[0, 0, 0]} width={2} />
       
-      {/* Plants */}
-      <Plant position={[-4, 0, -2]} scale={1.2} />
-      <Plant position={[4, 0, -2]} scale={1} />
-      <Plant position={[-3, 0, 3]} scale={0.8} />
-      <Plant position={[3, 0, 3]} scale={1.1} />
-      <Plant position={[0, 0, -3]} scale={0.9} />
-      
       {/* Coffee Machine */}
       <CoffeeMachine position={[4, 0.3, 0]} />
       
-      {/* Windows */}
+      {/* Windows - with snow effect */}
       <WindowPanel position={[-5, 1.5, 0]} rotation={[0, Math.PI / 2, 0]} />
       <WindowPanel position={[5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]} />
       <WindowPanel position={[0, 1.5, -5]} />
       
-      {/* Particles */}
+      {/* Snowfall Particles */}
       <Particles />
     </>
   )
@@ -390,10 +663,10 @@ function Office3D() {
         <Environment preset="night" />
       </Canvas>
       
-      {/* Studio Label Overlay */}
+      {/* Studio Label Overlay - Christmas themed */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-center pointer-events-none">
-        <p className="text-slate-500 font-mono text-sm tracking-widest">MUDGALOVERSEAS HQ</p>
-        <p className="text-slate-600 font-mono text-xs mt-1">Where games come to life ✨</p>
+        <p className="text-red-400 font-mono text-sm tracking-widest">🎄 MUDGALOVERSEAS HQ 🎄</p>
+        <p className="text-green-400 font-mono text-xs mt-1">Merry Christmas & Happy Holidays! ❄️</p>
       </div>
     </div>
   )
