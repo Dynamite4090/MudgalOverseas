@@ -63,29 +63,29 @@ function LoginScreen({ onLogin }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-950 flex items-center justify-center crt-flicker">
-      <div className="text-center">
+    <div className="fixed inset-0 bg-slate-950 flex items-center justify-center crt-flicker p-4">
+      <div className="text-center w-full max-w-md">
         {/* Logo */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-2 tracking-wider">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-2 tracking-wider">
           <span className="text-slate-400">MUDGAL</span>
           <span className="text-accent-blue glow-text-subtle">OVERSEAS</span>
         </h1>
-        <p className="text-slate-500 tracking-[0.3em] text-sm mb-12 font-mono">
+        <p className="text-slate-500 tracking-[0.2em] sm:tracking-[0.3em] text-xs sm:text-sm mb-8 sm:mb-12 font-mono">
           INDIE GAME STUDIO
         </p>
 
         {/* Terminal Box */}
-        <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 w-[400px] mx-auto">
+        <div className="bg-slate-900 border border-slate-700 rounded-lg p-4 sm:p-6 w-full max-w-[400px] mx-auto">
           {/* Initial State */}
           {phase === 'init' && (
             <div className="fade-in">
-              <div className="flex items-center gap-2 text-slate-400 font-mono text-sm mb-6">
+              <div className="flex items-center gap-2 text-slate-400 font-mono text-xs sm:text-sm mb-4 sm:mb-6">
                 <TerminalIcon />
                 <span>SECURE_LOGIN_V1</span>
               </div>
               <button
                 onClick={handleInitialize}
-                className="w-full py-4 bg-accent-blue/20 hover:bg-accent-blue/30 border border-accent-blue/50 rounded-lg text-accent-blue font-mono tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent-blue/20"
+                className="w-full py-3 sm:py-4 bg-accent-blue/20 hover:bg-accent-blue/30 active:bg-accent-blue/40 border border-accent-blue/50 rounded-lg text-accent-blue font-mono tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent-blue/20 text-sm sm:text-base"
               >
                 INITIALIZE SYSTEM →
               </button>

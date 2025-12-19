@@ -13,11 +13,12 @@ function Window({
   onFocus, 
   zIndex,
   initialPosition = { x: 100, y: 100 },
-  initialSize = { width: 600, height: 400 }
+  initialSize = { width: 600, height: 400 },
+  isMobile = false
 }) {
   const [position, setPosition] = useState(initialPosition)
   const [size, setSize] = useState(initialSize)
-  const [isMaximized, setIsMaximized] = useState(false)
+  const [isMaximized, setIsMaximized] = useState(isMobile) // Auto-maximize on mobile
   const [isDragging, setIsDragging] = useState(false)
   const [isResizing, setIsResizing] = useState(false)
   const [resizeDirection, setResizeDirection] = useState(null)
@@ -134,20 +135,32 @@ function Window({
   // Resize handle styles
   const resizeHandleClass = "absolute bg-transparent hover:bg-accent-blue/30 transition-colors z-10"
 
+  // Mobile: always fullscreen
+  const windowStyle = isMobile ? {
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    zIndex,
+    borderRadius: 0,
+  } : {
+    left: isMaximized ? 0 : position.x,
+    top: isMaximized ? 0 : position.y,
+    width: isMaximized ? '100%' : size.width,
+    height: isMaximized ? '100%' : size.height,
+    zIndex,
+  }
+
   return (
     <div
-      className="fixed bg-slate-900 border border-slate-700 rounded-lg overflow-hidden shadow-2xl window-appear"
-      style={{
-        left: position.x,
-        top: position.y,
-        width: size.width,
-        height: size.height,
-        zIndex,
-      }}
+      className={`fixed bg-slate-900 border border-slate-700 overflow-hidden shadow-2xl window-appear ${
+        isMobile ? 'rounded-none' : 'rounded-lg'
+      }`}
+      style={windowStyle}
       onClick={() => onFocus(id)}
     >
-      {/* Resize Handles */}
-      {!isMaximized && (
+      {/* Resize Handles - Hidden on mobile */}
+      {!isMaximized && !isMobile && (
         <>
           {/* Edges */}
           <div 
@@ -189,20 +202,25 @@ function Window({
 
       {/* Title Bar */}
       <div
-        className="h-10 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 cursor-move select-none"
-        onMouseDown={handleMouseDown}
+        className={`h-10 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 select-none ${
+          isMobile ? '' : 'cursor-move'
+        }`}
+        onMouseDown={isMobile ? undefined : handleMouseDown}
       >
-        <span className="text-slate-400 font-mono text-sm">{title}</span>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={(e) => { e.stopPropagation(); toggleMaximize() }}
-            className="p-1 hover:bg-slate-700 rounded transition-colors text-slate-400 hover:text-accent-blue"
-          >
-            <MaximizeIcon />
-          </button>
+        <span className="text-slate-400 font-mono text-sm truncate flex-1">{title}</span>
+        <div className="flex items-center gap-2 ml-2">
+          {/* Hide maximize button on mobile */}
+          {!isMobile && (
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleMaximize() }}
+              className="p-1 hover:bg-slate-700 rounded transition-colors text-slate-400 hover:text-accent-blue"
+            >
+              <MaximizeIcon />
+            </button>
+          )}
           <button
             onClick={(e) => { e.stopPropagation(); onClose(id) }}
-            className="p-1 hover:bg-accent-red/20 rounded transition-colors text-slate-400 hover:text-accent-red"
+            className="p-2 hover:bg-accent-red/20 rounded transition-colors text-slate-400 hover:text-accent-red"
           >
             <XIcon />
           </button>

@@ -265,10 +265,10 @@ function WorkHere() {
       {/* Hero Banner */}
       <IsometricOffice />
 
-      {/* Main Content */}
-      <div className="flex">
-        {/* Sidebar */}
-        <div className="w-64 border-r border-slate-800 p-4">
+      {/* Main Content - Responsive layout */}
+      <div className="flex flex-col md:flex-row">
+        {/* Sidebar - Horizontal scrollable on mobile */}
+        <div className="md:w-64 border-b md:border-b-0 md:border-r border-slate-800 p-4">
           {/* Search */}
           <div className="relative mb-4">
             <div className="absolute left-3 top-1/2 -translate-y-1/2">
@@ -283,41 +283,45 @@ function WorkHere() {
             />
           </div>
 
-          {/* Categories */}
-          {filteredCategories.map((category) => (
-            <div key={category.name} className="mb-4">
-              <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">
-                {category.name}
-              </h3>
-              {category.jobs.map((job) => (
-                <button
-                  key={job.title}
-                  onClick={() => setSelectedJob(job)}
-                  className={`w-full text-left p-3 rounded-lg mb-1 transition-colors ${
-                    selectedJob?.title === job.title 
-                      ? 'bg-slate-800 border border-slate-600' 
-                      : 'hover:bg-slate-800/50'
-                  }`}
-                >
-                  <div className="font-medium text-white text-sm">{job.title}</div>
-                  <div className="text-xs text-slate-500">
-                    {job.teams} {job.teams === 1 ? 'team' : 'teams'}
-                  </div>
-                </button>
-              ))}
-            </div>
-          ))}
+          {/* Categories - Horizontal scroll on mobile */}
+          <div className="flex md:block overflow-x-auto md:overflow-x-visible gap-2 md:gap-0 pb-2 md:pb-0">
+            {filteredCategories.map((category) => (
+              <div key={category.name} className="mb-4 flex-shrink-0 md:flex-shrink">
+                <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-2 whitespace-nowrap">
+                  {category.name}
+                </h3>
+                <div className="flex md:block gap-2 md:gap-0">
+                  {category.jobs.map((job) => (
+                    <button
+                      key={job.title}
+                      onClick={() => setSelectedJob(job)}
+                      className={`text-left p-3 rounded-lg mb-1 transition-colors whitespace-nowrap md:whitespace-normal md:w-full ${
+                        selectedJob?.title === job.title 
+                          ? 'bg-slate-800 border border-slate-600' 
+                          : 'hover:bg-slate-800/50 bg-slate-800/30 md:bg-transparent'
+                      }`}
+                    >
+                      <div className="font-medium text-white text-sm">{job.title}</div>
+                      <div className="text-xs text-slate-500">
+                        {job.teams} {job.teams === 1 ? 'team' : 'teams'}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Job Details */}
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-4 md:p-6">
           {selectedJob && (
             <>
-              <h2 className="text-2xl font-bold text-white mb-4">{selectedJob.title}</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-4">{selectedJob.title}</h2>
               
               {/* Teams hiring badge */}
-              <div className="inline-block bg-slate-800 rounded-lg px-4 py-2 mb-6">
-                <span className="text-slate-300 text-sm">
+              <div className="inline-block bg-slate-800 rounded-lg px-3 md:px-4 py-2 mb-4 md:mb-6">
+                <span className="text-slate-300 text-xs md:text-sm">
                   {selectedJob.teams} small {selectedJob.teams === 1 ? 'team is' : 'teams are'} hiring for this role
                 </span>
               </div>
@@ -366,7 +370,7 @@ function WorkHere() {
               {/* Apply Button */}
               <button 
                 onClick={() => setShowApplyModal(true)}
-                className="px-6 py-3 bg-accent-blue hover:bg-accent-blue/80 text-white font-medium rounded-lg transition-colors"
+                className="w-full md:w-auto px-6 py-3 bg-accent-blue hover:bg-accent-blue/80 active:bg-accent-blue/70 text-white font-medium rounded-lg transition-colors"
               >
                 Apply for this role
               </button>
@@ -374,8 +378,8 @@ function WorkHere() {
           )}
         </div>
 
-        {/* Right Sidebar - About teams */}
-        <div className="w-72 border-l border-slate-800 p-4">
+        {/* Right Sidebar - About teams (Hidden on mobile) */}
+        <div className="hidden lg:block w-72 border-l border-slate-800 p-4">
           <h3 className="text-lg font-semibold text-white mb-4">About the small teams</h3>
           
           <div className="space-y-3">

@@ -11,10 +11,23 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background: #0a0a0f;
   overflow: hidden;
   font-family: 'Space Grotesk', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
+/* Prevent pull-to-refresh on mobile */
+body {
+  overscroll-behavior: none;
 }
 
 /* ============================================
@@ -35,6 +48,16 @@ body {
     transparent 2px
   );
   z-index: 9999;
+}
+
+/* Disable CRT effects on mobile for better performance */
+@media (max-width: 768px) {
+  .crt-overlay {
+    display: none;
+  }
+  .crt-flicker {
+    animation: none;
+  }
 }
 
 .crt-flicker {

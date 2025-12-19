@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
  * Clock Component
  * Displays current time and date in the desktop corner
  */
-function Clock() {
+function Clock({ isMobile = false }) {
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
@@ -13,13 +13,19 @@ function Clock() {
   }, [])
 
   return (
-    <div className="absolute top-4 right-4 text-right">
-      <div className="text-slate-400 font-mono text-lg">
+    <div className={`absolute text-right z-20 ${
+      isMobile 
+        ? 'bottom-4 left-1/2 -translate-x-1/2 text-center bg-slate-900/80 backdrop-blur-sm px-4 py-2 rounded-full border border-slate-700/50' 
+        : 'top-4 right-4'
+    }`}>
+      <div className={`text-slate-400 font-mono ${isMobile ? 'text-sm' : 'text-lg'}`}>
         {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
       </div>
-      <div className="text-slate-600 font-mono text-xs">
-        {time.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
-      </div>
+      {!isMobile && (
+        <div className="text-slate-600 font-mono text-xs">
+          {time.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+        </div>
+      )}
     </div>
   )
 }

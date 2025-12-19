@@ -1,4 +1,4 @@
-# MudgalOverseas OS
+# MudgalOverseas
 
 A custom, immersive "OS" experience website for MudgalOverseas Indie Game Studio.
 
