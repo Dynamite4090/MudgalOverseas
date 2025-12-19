@@ -435,38 +435,6 @@ function WorkHere() {
           </div>
         </div>
       </div>
-
-      {/* Apply Modal with Google Form - Hidden for now
-      {showApplyModal && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-slate-900 border border-slate-700 rounded-xl w-full max-w-2xl mx-4 h-[85vh] flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-slate-700 shrink-0">
-              <div>
-                <h3 className="text-lg font-semibold text-white">Apply for {selectedJob?.title}</h3>
-                <p className="text-sm text-slate-500">Fill out the application form</p>
-              </div>
-              <button 
-                onClick={() => setShowApplyModal(false)}
-                className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-slate-400 hover:text-white"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <iframe
-                src="https://docs.google.com/forms/d/14nTEixh75YFjNtOOAorWgAKVnsOOc2G5VOF4wvKKxto/viewform?embedded=true"
-                className="w-full h-full border-0"
-                title="Job Application Form"
-              >
-                Loading form...
-              </iframe>
-            </div>
-          </div>
-        </div>
-      )}
-      */}
     </div>
   )
 }
