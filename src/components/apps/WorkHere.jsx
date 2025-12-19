@@ -367,13 +367,14 @@ function WorkHere() {
                 </ul>
               </div>
 
-              {/* Apply Button */}
+              {/* Apply Button - Hidden for now
               <button 
                 onClick={() => setShowApplyModal(true)}
                 className="w-full md:w-auto px-6 py-3 bg-accent-blue hover:bg-accent-blue/80 active:bg-accent-blue/70 text-white font-medium rounded-lg transition-colors"
               >
                 Apply for this role
               </button>
+              */}
             </>
           )}
         </div>
@@ -435,11 +436,10 @@ function WorkHere() {
         </div>
       </div>
 
-      {/* Apply Modal with Google Form */}
+      {/* Apply Modal with Google Form - Hidden for now
       {showApplyModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
           <div className="bg-slate-900 border border-slate-700 rounded-xl w-full max-w-2xl mx-4 h-[85vh] flex flex-col">
-            {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b border-slate-700 shrink-0">
               <div>
                 <h3 className="text-lg font-semibold text-white">Apply for {selectedJob?.title}</h3>
@@ -454,8 +454,6 @@ function WorkHere() {
                 </svg>
               </button>
             </div>
-
-            {/* Google Form Iframe */}
             <div className="flex-1 overflow-hidden">
               <iframe
                 src="https://docs.google.com/forms/d/14nTEixh75YFjNtOOAorWgAKVnsOOc2G5VOF4wvKKxto/viewform?embedded=true"
@@ -468,6 +466,7 @@ function WorkHere() {
           </div>
         </div>
       )}
+      */}
     </div>
   )
 }

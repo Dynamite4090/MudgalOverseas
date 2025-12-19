@@ -16,16 +16,13 @@ function PancakeVideo() {
         </div>
       </div>
 
-      {/* YouTube Embed */}
-      <div className="flex-1 relative">
-        <iframe
-          className="absolute inset-0 w-full h-full"
-          src="https://www.youtube.com/embed/lVjR0Y5Ardg?rel=0"
-          title="Project Pancake"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
+      {/* Video Placeholder */}
+      <div className="flex-1 relative flex items-center justify-center bg-slate-900">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🥞</div>
+          <p className="text-slate-400 font-mono text-lg">Coming Soon</p>
+          <p className="text-slate-600 font-mono text-sm mt-2">Video under production</p>
+        </div>
       </div>
 
       {/* Footer */}
