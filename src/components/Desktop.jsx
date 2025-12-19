@@ -15,7 +15,7 @@ const DESKTOP_ICONS = [
   { id: 'talk', name: 'Talk to Human', icon: MessageSquareIcon, color: 'text-accent-cyan' },
   { id: 'team', name: 'Team', icon: UsersIcon, color: 'text-accent-green' },
   { id: 'workhere', name: 'Work Here', icon: BriefcaseIcon, color: 'text-accent-blue' },
-  { id: 'changelog', name: 'Change Log', icon: FileTextIcon, color: 'text-accent-purple' },
+  // { id: 'changelog', name: 'Change Log', icon: FileTextIcon, color: 'text-accent-purple' },
 ]
 
 /**
