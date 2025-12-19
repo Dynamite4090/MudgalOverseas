@@ -119,13 +119,13 @@ function Desktop() {
             <div
               key={icon.id}
               onClick={() => openWindow(icon.id)}
-              className="icon-container relative flex flex-col items-center p-3 rounded-lg cursor-pointer hover:bg-slate-800/50 transition-colors group w-20"
+              className="icon-container relative flex flex-col items-center p-3 rounded-lg cursor-pointer bg-slate-900/70 backdrop-blur-sm border border-slate-700/50 hover:bg-slate-800/80 hover:border-slate-600/50 transition-all group w-20"
             >
               <div className="icon-glow" />
               <div className={`${icon.color} mb-2 group-hover:scale-110 transition-transform`}>
                 <IconComponent />
               </div>
-              <span className="text-slate-400 text-xs text-center font-mono group-hover:text-slate-200 transition-colors">
+              <span className="text-slate-300 text-xs text-center font-mono group-hover:text-white transition-colors drop-shadow-md">
                 {icon.name}
               </span>
             </div>

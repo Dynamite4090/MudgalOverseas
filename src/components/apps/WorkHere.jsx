@@ -8,20 +8,50 @@ const JOB_CATEGORIES = [
     name: 'Game Development',
     jobs: [
       { 
-        title: 'Game Developer', 
+        title: 'Game Programmer', 
         teams: 2,
         location: 'Remote',
-        timezone: 'GMT +5:30 to GMT -8',
-        description: 'Build amazing games with our core team',
-        requirements: ['Unity/Unreal experience', '2+ years game dev', 'Passion for indie games']
+        timezone: 'IST',
+        description: 'Implement 2D gameplay mechanics, game states & UI interactions in Unity. Work closely with designers and artists to integrate assets & features. Write optimized, reusable, readable C# scripts. Troubleshoot bugs, performance issues & mobile deployment problems. Contribute to rapid prototypes and release-ready builds.',
+        requirements: [
+          'Strong C# fundamentals + Unity API',
+          'Understanding of physics, collisions, events, UI, and animation controllers',
+          'Movement + input controls (tap / drag / swipe)',
+          'Collision & trigger handling, Physics2D & Rigidbody2D',
+          'Animation Controller & basic VFX scripting',
+          'Game states (Start → Play → Win/Lose → Restart)',
+          'Score, collectibles, power-ups & simple economy',
+          'Endless generation and difficulty scaling',
+          'Object pooling (very important)',
+          'Mobile optimization, low physics overhead',
+          'Modular scripts and reusable components',
+          'Prefabs & Scriptable Objects for configuration',
+          'Version control basics (Git/GitHub)',
+          'UI + Gameplay linking (buttons, events)',
+          'Audio triggers and feedback elements',
+          'Quick prototyping mindset',
+          '"Satisfying feel" — juice, feedback, polish',
+          'Understanding of hyper-casual loops and player retention'
+        ]
       },
+    ]
+  },
+  {
+    name: 'Design',
+    jobs: [
       { 
         title: 'Game Designer', 
         teams: 1,
         location: 'Remote',
-        timezone: 'Any',
-        description: 'Design engaging gameplay mechanics',
-        requirements: ['Portfolio of game designs', 'Understanding of player psychology', 'Creative mindset']
+        timezone: 'IST',
+        description: 'Design hyper-casual game concepts, mechanics, and progression systems. Create Game Design Documents (GDD), flowcharts, user journeys & feature lists. Work with programmers, artists and level designers to ensure design execution. Analyze hyper-casual market trends and deconstruct hit titles. Balance difficulty, in-game economy, pacing and user retention.',
+        requirements: [
+          'Strong understanding of 2D/3D games (Hyper-Casual preferred)',
+          'Understanding of hyper-casual gameplay loops & feedback systems',
+          'Knowledge of Unity to validate gameplay ideas (basic prototyping preferred)',
+          'Analytical mindset for player behaviour & economy balancing',
+          'Good documentation skills (GDD, spreadsheets, diagrams)'
+        ]
       },
     ]
   },
@@ -29,33 +59,32 @@ const JOB_CATEGORIES = [
     name: 'Art & Design',
     jobs: [
       { 
-        title: '2D Artist', 
+        title: '2D Artist / Level Designer', 
         teams: 1,
         location: 'Remote',
-        timezone: 'GMT +5:30 to GMT +2',
-        description: 'Create stunning 2D art and animations',
-        requirements: ['Proficiency in digital art tools', 'Animation skills', 'Strong portfolio']
+        timezone: 'IST',
+        description: 'Build engaging, challenging and scalable 2D hyper-casual levels. Balance pacing, timing, obstacles and difficulty curves. Work closely with designers & programmers to validate level flow. Perform play-tests & iterate based on feedback. Create levels that encourage retention and replay value.',
+        requirements: [
+          'Portfolio of 2D game levels (mandatory)',
+          'Understanding of pacing, challenge balance, difficulty curve',
+          'Strong sense of spatial layout, timing and visual readability',
+          'Knowledge of Unity tilemaps, colliders & prefabs',
+          'Understanding of player psychology and challenge-reward loop'
+        ]
       },
       { 
         title: 'UI/UX Designer', 
         teams: 1,
         location: 'Remote',
-        timezone: 'Any',
-        description: 'Design intuitive game interfaces',
-        requirements: ['Figma/Sketch experience', 'Game UI portfolio', 'User-centric approach']
-      },
-    ]
-  },
-  {
-    name: 'Engineering',
-    jobs: [
-      { 
-        title: 'Backend Engineer', 
-        teams: 1,
-        location: 'Remote',
-        timezone: 'GMT +5:30 to GMT -5',
-        description: 'Build scalable game services',
-        requirements: ['Node.js/Python', 'Database experience', 'API design skills']
+        timezone: 'IST',
+        description: 'Design complete UI layout for hyper-casual games — menus, HUD, victory/defeat screens. Create wireframes, mockups, assets and UI states for mobile devices. Ensure smooth UX with intuitive flow and clear feedback cues. Export UI for Unity & collaborate with programmers for implementation. Maintain consistency in style, color palette and typography.',
+        requirements: [
+          'Portfolio required (Non-AI artwork only)',
+          'Ability to design intuitive and polished game screens',
+          'Figma / Photoshop / Illustrator / Adobe XD / Krita',
+          'Knowledge of UI for mobile resolutions & touch interactions',
+          'Understanding of Unity canvas system is a plus'
+        ]
       },
     ]
   },
@@ -402,15 +431,15 @@ function WorkHere() {
         </div>
       </div>
 
-      {/* Apply Modal */}
+      {/* Apply Modal with Google Form */}
       {showApplyModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-          <div className="bg-slate-900 border border-slate-700 rounded-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-auto">
+          <div className="bg-slate-900 border border-slate-700 rounded-xl w-full max-w-2xl mx-4 h-[85vh] flex flex-col">
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-700">
+            <div className="flex items-center justify-between p-4 border-b border-slate-700 shrink-0">
               <div>
                 <h3 className="text-lg font-semibold text-white">Apply for {selectedJob?.title}</h3>
-                <p className="text-sm text-slate-500">Fill out the form below</p>
+                <p className="text-sm text-slate-500">Fill out the application form</p>
               </div>
               <button 
                 onClick={() => setShowApplyModal(false)}
@@ -422,107 +451,16 @@ function WorkHere() {
               </button>
             </div>
 
-            {/* Modal Body */}
-            <form onSubmit={handleApply} className="p-4 space-y-4">
-              {submitStatus === 'success' ? (
-                <div className="text-center py-8">
-                  <div className="text-4xl mb-4">🎉</div>
-                  <p className="text-accent-green font-medium">Application submitted!</p>
-                  <p className="text-slate-500 text-sm mt-2">We'll be in touch soon.</p>
-                </div>
-              ) : (
-                <>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-400 mb-1">Full Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={applicationData.name}
-                      onChange={(e) => setApplicationData(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue"
-                      placeholder="John Doe"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-400 mb-1">Email *</label>
-                    <input
-                      type="email"
-                      required
-                      value={applicationData.email}
-                      onChange={(e) => setApplicationData(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-400 mb-1">Portfolio / LinkedIn URL</label>
-                    <input
-                      type="url"
-                      value={applicationData.portfolio}
-                      onChange={(e) => setApplicationData(prev => ({ ...prev, portfolio: e.target.value }))}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue"
-                      placeholder="https://..."
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-400 mb-1">Years of Experience</label>
-                    <select
-                      value={applicationData.experience}
-                      onChange={(e) => setApplicationData(prev => ({ ...prev, experience: e.target.value }))}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-accent-blue"
-                    >
-                      <option value="">Select...</option>
-                      <option value="0-1">0-1 years</option>
-                      <option value="1-3">1-3 years</option>
-                      <option value="3-5">3-5 years</option>
-                      <option value="5+">5+ years</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-400 mb-1">Why do you want to join? *</label>
-                    <textarea
-                      required
-                      rows={4}
-                      value={applicationData.coverLetter}
-                      onChange={(e) => setApplicationData(prev => ({ ...prev, coverLetter: e.target.value }))}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-accent-blue resize-none"
-                      placeholder="Tell us about yourself and why you'd be a great fit..."
-                    />
-                  </div>
-
-                  {submitStatus === 'error' && (
-                    <div className="p-3 bg-accent-red/10 border border-accent-red/50 rounded-lg text-accent-red text-sm">
-                      Failed to submit application. Please try again.
-                    </div>
-                  )}
-
-                  <div className="flex gap-3 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setShowApplyModal(false)}
-                      className="flex-1 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
-                        isSubmitting 
-                          ? 'bg-slate-700 text-slate-400 cursor-not-allowed' 
-                          : 'bg-accent-blue hover:bg-accent-blue/80 text-white'
-                      }`}
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Submit Application'}
-                    </button>
-                  </div>
-                </>
-              )}
-            </form>
+            {/* Google Form Iframe */}
+            <div className="flex-1 overflow-hidden">
+              <iframe
+                src="https://docs.google.com/forms/d/14nTEixh75YFjNtOOAorWgAKVnsOOc2G5VOF4wvKKxto/viewform?embedded=true"
+                className="w-full h-full border-0"
+                title="Job Application Form"
+              >
+                Loading form...
+              </iframe>
+            </div>
           </div>
         </div>
       )}

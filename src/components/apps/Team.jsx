@@ -2,26 +2,28 @@ import { useState } from 'react'
 
 /**
  * Team members data
+ * Add your team member images to: public/images/team/
+ * Image names: shanu.png, sujal.png, brijesh.png (or .jpg)
  */
 const TEAM_MEMBERS = [
   {
     name: 'Shanu Mudgal',
     role: 'CEO & Founder',
-    avatar: '👨‍💼',
+    image: '/images/team/shanu.png',
     color: 'accent-yellow',
     description: 'Visionary leader and creative mind behind MudgalOverseas. Passionate about creating unique gaming experiences that push boundaries.',
   },
   {
     name: 'Sujal Pachpande',
     role: 'Intern Indie Game Developer',
-    avatar: '👨‍💻',
+    image: '/images/team/sujal.png',
     color: 'accent-blue',
     description: 'Talented developer with a knack for gameplay mechanics. Brings fresh ideas and energy to every project.',
   },
   {
     name: 'Brijesh Malaviya',
     role: 'Intern Indie Game Developer',
-    avatar: '🎮',
+    image: '/images/team/brijesh.png',
     color: 'accent-purple',
     description: 'Creative problem solver specializing in game systems. Always exploring new ways to make games more engaging.',
   },
@@ -61,9 +63,18 @@ function Team() {
               }`}
             >
               <div className="flex items-start gap-4">
-                {/* Avatar */}
-                <div className={`w-16 h-16 rounded-lg bg-slate-800 flex items-center justify-center text-3xl shrink-0 border border-slate-700`}>
-                  {member.avatar}
+                {/* Avatar Image */}
+                <div className={`w-16 h-16 rounded-lg bg-slate-800 overflow-hidden shrink-0 border border-slate-700`}>
+                  <img 
+                    src={member.image} 
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback to initials if image fails to load
+                      e.target.style.display = 'none'
+                      e.target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-xl font-bold text-slate-400">${member.name.split(' ').map(n => n[0]).join('')}</div>`
+                    }}
+                  />
                 </div>
 
                 {/* Info */}

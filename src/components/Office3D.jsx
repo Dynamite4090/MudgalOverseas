@@ -16,78 +16,148 @@ function Floor() {
 }
 
 /**
- * Desk Component
+ * Desk Component - Office desk with monitor, keyboard, mouse
  */
 function Desk({ position, monitorColor = '#7aa2f7' }) {
   return (
     <group position={position}>
       {/* Desk Top */}
       <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.2, 0.08, 0.7]} />
-        <meshStandardMaterial color="#4a4339" metalness={0.2} roughness={0.7} />
+        <boxGeometry args={[1.2, 0.06, 0.7]} />
+        <meshStandardMaterial color="#5c4d3d" metalness={0.1} roughness={0.8} />
+      </mesh>
+      
+      {/* Desk edge trim */}
+      <mesh position={[0, 0.48, 0.35]} castShadow>
+        <boxGeometry args={[1.2, 0.04, 0.02]} />
+        <meshStandardMaterial color="#4a3f32" />
       </mesh>
       
       {/* Desk Legs */}
-      {[[-0.5, 0, -0.25], [0.5, 0, -0.25], [-0.5, 0, 0.25], [0.5, 0, 0.25]].map((pos, i) => (
+      {[[-0.55, 0, -0.3], [0.55, 0, -0.3], [-0.55, 0, 0.3], [0.55, 0, 0.3]].map((pos, i) => (
         <mesh key={i} position={[pos[0], 0.25, pos[2]]} castShadow>
-          <boxGeometry args={[0.05, 0.5, 0.05]} />
-          <meshStandardMaterial color="#3d3d3d" />
+          <boxGeometry args={[0.04, 0.5, 0.04]} />
+          <meshStandardMaterial color="#3d3d3d" metalness={0.3} />
         </mesh>
       ))}
       
       {/* Monitor */}
-      <group position={[0, 0.85, -0.15]}>
+      <group position={[0, 0.85, -0.2]}>
+        {/* Screen bezel */}
         <mesh castShadow>
-          <boxGeometry args={[0.5, 0.35, 0.03]} />
+          <boxGeometry args={[0.55, 0.38, 0.025]} />
           <meshStandardMaterial color="#1a1a2e" metalness={0.5} roughness={0.3} />
         </mesh>
-        {/* Screen glow */}
-        <mesh position={[0, 0, 0.02]}>
-          <boxGeometry args={[0.45, 0.3, 0.01]} />
-          <meshStandardMaterial color={monitorColor} emissive={monitorColor} emissiveIntensity={0.3} />
+        {/* Screen */}
+        <mesh position={[0, 0, 0.015]}>
+          <boxGeometry args={[0.5, 0.32, 0.01]} />
+          <meshStandardMaterial color={monitorColor} emissive={monitorColor} emissiveIntensity={0.4} />
         </mesh>
-        {/* Monitor Stand */}
+        {/* Monitor Stand neck */}
         <mesh position={[0, -0.25, 0]}>
-          <boxGeometry args={[0.08, 0.15, 0.08]} />
-          <meshStandardMaterial color="#2d2d2d" />
+          <boxGeometry args={[0.06, 0.12, 0.06]} />
+          <meshStandardMaterial color="#2d2d2d" metalness={0.5} />
+        </mesh>
+        {/* Monitor Stand base */}
+        <mesh position={[0, -0.32, 0.05]}>
+          <boxGeometry args={[0.2, 0.02, 0.15]} />
+          <meshStandardMaterial color="#2d2d2d" metalness={0.5} />
         </mesh>
       </group>
       
       {/* Keyboard */}
-      <mesh position={[0, 0.55, 0.15]} castShadow>
-        <boxGeometry args={[0.35, 0.02, 0.12]} />
+      <mesh position={[0, 0.545, 0.1]} castShadow>
+        <boxGeometry args={[0.35, 0.015, 0.12]} />
         <meshStandardMaterial color="#2d2d2d" />
       </mesh>
+      {/* Keyboard keys indication */}
+      <mesh position={[0, 0.555, 0.1]}>
+        <boxGeometry args={[0.32, 0.005, 0.09]} />
+        <meshStandardMaterial color="#3d3d3d" />
+      </mesh>
+      
+      {/* Mouse */}
+      <mesh position={[0.28, 0.54, 0.12]} castShadow>
+        <boxGeometry args={[0.05, 0.02, 0.08]} />
+        <meshStandardMaterial color="#2d2d2d" />
+      </mesh>
+      
+      {/* Coffee mug */}
+      <group position={[-0.4, 0.58, 0.15]}>
+        <mesh castShadow>
+          <cylinderGeometry args={[0.035, 0.03, 0.08, 12]} />
+          <meshStandardMaterial color="#f5f5f5" />
+        </mesh>
+        {/* Coffee */}
+        <mesh position={[0, 0.03, 0]}>
+          <cylinderGeometry args={[0.03, 0.03, 0.02, 12]} />
+          <meshStandardMaterial color="#4a2c17" />
+        </mesh>
+        {/* Handle */}
+        <mesh position={[0.04, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <torusGeometry args={[0.025, 0.008, 8, 12, Math.PI]} />
+          <meshStandardMaterial color="#f5f5f5" />
+        </mesh>
+      </group>
     </group>
   )
 }
 
 /**
- * Chair Component
+ * Chair Component - Office chair with armrests
  */
 function Chair({ position }) {
   return (
     <group position={position}>
-      {/* Seat */}
-      <mesh position={[0, 0.35, 0]} castShadow>
-        <boxGeometry args={[0.4, 0.08, 0.4]} />
+      {/* Seat cushion */}
+      <mesh position={[0, 0.38, 0]} castShadow>
+        <boxGeometry args={[0.4, 0.06, 0.4]} />
         <meshStandardMaterial color="#4a7c59" />
+      </mesh>
+      {/* Seat padding */}
+      <mesh position={[0, 0.42, 0]} castShadow>
+        <boxGeometry args={[0.36, 0.04, 0.36]} />
+        <meshStandardMaterial color="#5a9c69" />
       </mesh>
       {/* Backrest */}
       <mesh position={[0, 0.65, -0.18]} castShadow>
-        <boxGeometry args={[0.38, 0.5, 0.05]} />
+        <boxGeometry args={[0.38, 0.45, 0.05]} />
         <meshStandardMaterial color="#4a7c59" />
       </mesh>
+      {/* Backrest padding */}
+      <mesh position={[0, 0.65, -0.15]} castShadow>
+        <boxGeometry args={[0.32, 0.38, 0.04]} />
+        <meshStandardMaterial color="#5a9c69" />
+      </mesh>
+      {/* Armrests */}
+      <mesh position={[-0.22, 0.5, 0]} castShadow>
+        <boxGeometry args={[0.04, 0.08, 0.3]} />
+        <meshStandardMaterial color="#3d3d3d" />
+      </mesh>
+      <mesh position={[0.22, 0.5, 0]} castShadow>
+        <boxGeometry args={[0.04, 0.08, 0.3]} />
+        <meshStandardMaterial color="#3d3d3d" />
+      </mesh>
       {/* Base */}
-      <mesh position={[0, 0.15, 0]}>
-        <cylinderGeometry args={[0.15, 0.15, 0.05, 16]} />
+      <mesh position={[0, 0.12, 0]}>
+        <cylinderGeometry args={[0.18, 0.18, 0.03, 16]} />
         <meshStandardMaterial color="#2d2d2d" />
       </mesh>
       {/* Pole */}
-      <mesh position={[0, 0.2, 0]}>
-        <cylinderGeometry args={[0.03, 0.03, 0.2, 8]} />
+      <mesh position={[0, 0.25, 0]}>
+        <cylinderGeometry args={[0.04, 0.04, 0.25, 8]} />
         <meshStandardMaterial color="#4a4a4a" metalness={0.8} />
       </mesh>
+      {/* Wheels */}
+      {[0, 72, 144, 216, 288].map((angle, i) => {
+        const rad = (angle * Math.PI) / 180
+        return (
+          <mesh key={i} position={[Math.sin(rad) * 0.15, 0.03, Math.cos(rad) * 0.15]}>
+            <sphereGeometry args={[0.03, 8, 8]} />
+            <meshStandardMaterial color="#1a1a1a" />
+          </mesh>
+        )
+      })}
     </group>
   )
 }
@@ -135,12 +205,13 @@ function Plant({ position, scale = 1 }) {
 /**
  * Character Component - Cute animal sitting at desk
  */
-function Character({ position, type = 'cat', color = '#f5f5f5' }) {
+function Character({ position, type = 'cat', color = '#f5f5f5', facingDesk = true }) {
   const meshRef = useRef()
   
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.02
+      // Subtle breathing/working animation
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 1.5) * 0.01
     }
   })
 
@@ -153,44 +224,117 @@ function Character({ position, type = 'cat', color = '#f5f5f5' }) {
   }
 
   const c = colors[type] || colors.cat
+  const rotation = facingDesk ? [0, Math.PI, 0] : [0, 0, 0]
 
   return (
-    <group ref={meshRef} position={position}>
-      {/* Body */}
-      <mesh castShadow>
-        <sphereGeometry args={[0.15, 16, 16]} />
+    <group ref={meshRef} position={position} rotation={rotation}>
+      {/* Body - slightly tilted forward like sitting and working */}
+      <mesh castShadow position={[0, 0, 0]} rotation={[0.15, 0, 0]}>
+        <sphereGeometry args={[0.13, 16, 16]} />
         <meshStandardMaterial color={c.body} />
       </mesh>
       
-      {/* Head */}
-      <mesh position={[0, 0.2, 0]} castShadow>
-        <sphereGeometry args={[0.12, 16, 16]} />
+      {/* Head - looking at monitor */}
+      <mesh position={[0, 0.18, 0.02]} castShadow>
+        <sphereGeometry args={[0.11, 16, 16]} />
         <meshStandardMaterial color={c.body} />
       </mesh>
       
       {/* Ears (for cat/fox) */}
       {(type === 'cat' || type === 'fox') && (
         <>
-          <mesh position={[-0.08, 0.32, 0]} rotation={[0, 0, -0.3]}>
-            <coneGeometry args={[0.04, 0.08, 4]} />
+          <mesh position={[-0.07, 0.28, 0.02]} rotation={[0, 0, -0.3]}>
+            <coneGeometry args={[0.035, 0.07, 4]} />
             <meshStandardMaterial color={c.body} />
           </mesh>
-          <mesh position={[0.08, 0.32, 0]} rotation={[0, 0, 0.3]}>
-            <coneGeometry args={[0.04, 0.08, 4]} />
+          <mesh position={[0.07, 0.28, 0.02]} rotation={[0, 0, 0.3]}>
+            <coneGeometry args={[0.035, 0.07, 4]} />
             <meshStandardMaterial color={c.body} />
+          </mesh>
+        </>
+      )}
+
+      {/* Panda ears */}
+      {type === 'panda' && (
+        <>
+          <mesh position={[-0.08, 0.26, 0]} castShadow>
+            <sphereGeometry args={[0.04, 8, 8]} />
+            <meshStandardMaterial color={c.accent} />
+          </mesh>
+          <mesh position={[0.08, 0.26, 0]} castShadow>
+            <sphereGeometry args={[0.04, 8, 8]} />
+            <meshStandardMaterial color={c.accent} />
           </mesh>
         </>
       )}
       
       {/* Eyes */}
-      <mesh position={[-0.04, 0.22, 0.1]}>
-        <sphereGeometry args={[0.02, 8, 8]} />
+      <mesh position={[-0.035, 0.2, 0.09]}>
+        <sphereGeometry args={[0.018, 8, 8]} />
         <meshStandardMaterial color="#1a1a2e" />
       </mesh>
-      <mesh position={[0.04, 0.22, 0.1]}>
-        <sphereGeometry args={[0.02, 8, 8]} />
+      <mesh position={[0.035, 0.2, 0.09]}>
+        <sphereGeometry args={[0.018, 8, 8]} />
         <meshStandardMaterial color="#1a1a2e" />
       </mesh>
+
+      {/* Eye shine */}
+      <mesh position={[-0.03, 0.21, 0.105]}>
+        <sphereGeometry args={[0.005, 6, 6]} />
+        <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
+      </mesh>
+      <mesh position={[0.04, 0.21, 0.105]}>
+        <sphereGeometry args={[0.005, 6, 6]} />
+        <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.5} />
+      </mesh>
+
+      {/* Panda eye patches */}
+      {type === 'panda' && (
+        <>
+          <mesh position={[-0.035, 0.2, 0.085]}>
+            <sphereGeometry args={[0.035, 8, 8]} />
+            <meshStandardMaterial color={c.accent} />
+          </mesh>
+          <mesh position={[0.035, 0.2, 0.085]}>
+            <sphereGeometry args={[0.035, 8, 8]} />
+            <meshStandardMaterial color={c.accent} />
+          </mesh>
+        </>
+      )}
+      
+      {/* Nose */}
+      <mesh position={[0, 0.16, 0.1]}>
+        <sphereGeometry args={[0.015, 6, 6]} />
+        <meshStandardMaterial color={type === 'fox' ? '#1a1a2e' : '#ffb6c1'} />
+      </mesh>
+
+      {/* Arms reaching toward keyboard */}
+      <mesh position={[-0.1, -0.02, 0.08]} rotation={[0.8, 0, -0.3]} castShadow>
+        <capsuleGeometry args={[0.025, 0.12, 4, 8]} />
+        <meshStandardMaterial color={c.body} />
+      </mesh>
+      <mesh position={[0.1, -0.02, 0.08]} rotation={[0.8, 0, 0.3]} castShadow>
+        <capsuleGeometry args={[0.025, 0.12, 4, 8]} />
+        <meshStandardMaterial color={c.body} />
+      </mesh>
+
+      {/* Legs (bent, sitting) */}
+      <mesh position={[-0.06, -0.12, 0.05]} rotation={[1.2, 0, 0]} castShadow>
+        <capsuleGeometry args={[0.03, 0.08, 4, 8]} />
+        <meshStandardMaterial color={c.body} />
+      </mesh>
+      <mesh position={[0.06, -0.12, 0.05]} rotation={[1.2, 0, 0]} castShadow>
+        <capsuleGeometry args={[0.03, 0.08, 4, 8]} />
+        <meshStandardMaterial color={c.body} />
+      </mesh>
+
+      {/* Tail for cat/fox */}
+      {(type === 'cat' || type === 'fox') && (
+        <mesh position={[0, -0.05, -0.12]} rotation={[-0.5, 0, 0]} castShadow>
+          <capsuleGeometry args={[0.025, 0.15, 4, 8]} />
+          <meshStandardMaterial color={c.body} />
+        </mesh>
+      )}
     </group>
   )
 }
@@ -600,38 +744,30 @@ function Scene() {
       <ChristmasLights startPos={[5, 3, -2]} endPos={[5, 3, 4]} segments={10} />
       
       {/* Desks with characters - festive monitor colors */}
-      <Desk position={[-2.5, 0, -1]} monitorColor="#ff4444" />
-      <Chair position={[-2.5, 0, -0.3]} />
-      <Character position={[-2.5, 0.7, -0.3]} type="cat" />
+      {/* Back row - facing monitors (away from camera) */}
+      <Desk position={[-2.5, -0.5, -1]} monitorColor="#ff4444" />
+      <Chair position={[-2.5, -0.5, -0.3]} />
+      <Character position={[-2.5, -0.02, -0.3]} type="cat" facingDesk={true} />
       
-      <Desk position={[0, 0, -1.5]} monitorColor="#44ff44" />
-      <Chair position={[0, 0, -0.8]} />
-      <Character position={[0, 0.7, -0.8]} type="panda" />
+      <Desk position={[0, -0.5, -1.5]} monitorColor="#44ff44" />
+      <Chair position={[0, -0.5, -0.8]} />
+      <Character position={[0, -0.02, -0.8]} type="panda" facingDesk={true} />
       
-      <Desk position={[2.5, 0, -1]} monitorColor="#ffd700" />
-      <Chair position={[2.5, 0, -0.3]} />
-      <Character position={[2.5, 0.7, -0.3]} type="dog" />
+      <Desk position={[2.5, -0.5, -1]} monitorColor="#ffd700" />
+      <Chair position={[2.5, -0.5, -0.3]} />
+      <Character position={[2.5, -0.02, -0.3]} type="dog" facingDesk={true} />
       
-      <Desk position={[-1.5, 0, 1.5]} monitorColor="#ff4444" />
-      <Chair position={[-1.5, 0, 2.2]} />
-      <Character position={[-1.5, 0.7, 2.2]} type="penguin" />
+      {/* Front row - facing their monitors (toward camera background) */}
+      <Desk position={[-1.5, -0.5, 1.5]} monitorColor="#ff4444" />
+      <Chair position={[-1.5, -0.5, 2.2]} />
+      <Character position={[-1.5, -0.02, 2.2]} type="penguin" facingDesk={true} />
       
-      <Desk position={[1.5, 0, 1.5]} monitorColor="#44ff44" />
-      <Chair position={[1.5, 0, 2.2]} />
-      <Character position={[1.5, 0.7, 2.2]} type="fox" />
-      
-      {/* Cubicle Walls */}
-      <CubicleWall position={[-1.2, 0.1, -0.5]} rotation={[0, Math.PI / 4, 0]} />
-      <CubicleWall position={[1.2, 0.1, -0.5]} rotation={[0, -Math.PI / 4, 0]} />
-      <CubicleWall position={[0, 0.1, 0.5]} rotation={[0, 0, 0]} width={2} />
+      <Desk position={[1.5, -0.5, 1.5]} monitorColor="#44ff44" />
+      <Chair position={[1.5, -0.5, 2.2]} />
+      <Character position={[1.5, -0.02, 2.2]} type="fox" facingDesk={true} />
       
       {/* Coffee Machine */}
-      <CoffeeMachine position={[4, 0.3, 0]} />
-      
-      {/* Windows - with snow effect */}
-      <WindowPanel position={[-5, 1.5, 0]} rotation={[0, Math.PI / 2, 0]} />
-      <WindowPanel position={[5, 1.5, 0]} rotation={[0, -Math.PI / 2, 0]} />
-      <WindowPanel position={[0, 1.5, -5]} />
+      <CoffeeMachine position={[4, -0.2, 0]} />
       
       {/* Snowfall Particles */}
       <Particles />
