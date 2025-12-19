@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // For GitHub Pages - use your repo name
-  base: '/MudgalOverseas-OS/',
+  base: '/MudgalOverseas/',
   server: {
     port: 3000,
     open: true
