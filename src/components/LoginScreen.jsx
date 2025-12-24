@@ -63,8 +63,8 @@ function LoginScreen({ onLogin }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-slate-950 flex items-center justify-center crt-flicker p-4">
-      <div className="text-center w-full max-w-md">
+    <div className="fixed inset-0 bg-slate-950 flex flex-col items-center justify-center crt-flicker p-4 min-h-screen">
+      <div className="text-center w-full max-w-md flex flex-col items-center justify-center">
         {/* Logo */}
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-2 tracking-wider">
           <span className="text-slate-400">MUDGAL</span>

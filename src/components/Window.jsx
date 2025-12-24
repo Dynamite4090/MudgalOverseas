@@ -1,16 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 import { XIcon, MaximizeIcon } from './Icons'
+import { useSettings } from '../context/SettingsContext'
 
 /**
  * Window Component
  * A draggable, resizable window container for applications
  */
-function Window({ 
-  id, 
-  title, 
-  children, 
-  onClose, 
-  onFocus, 
+function Window({
+  id,
+  title,
+  children,
+  onClose,
+  onFocus,
   zIndex,
   initialPosition = { x: 100, y: 100 },
   initialSize = { width: 600, height: 400 },
@@ -22,14 +23,15 @@ function Window({
   const [isDragging, setIsDragging] = useState(false)
   const [isResizing, setIsResizing] = useState(false)
   const [resizeDirection, setResizeDirection] = useState(null)
-  
+
   const dragOffset = useRef({ x: 0, y: 0 })
   const resizeStart = useRef({ x: 0, y: 0, width: 0, height: 0, posX: 0, posY: 0 })
   const prevState = useRef({ position, size })
+  const { theme } = useSettings()
 
   const handleMouseDown = (e) => {
     if (isMaximized) return
-    
+
     setIsDragging(true)
     dragOffset.current = {
       x: e.clientX - position.x,
@@ -62,18 +64,18 @@ function Window({
           y: e.clientY - dragOffset.current.y,
         })
       }
-      
+
       if (isResizing && resizeDirection) {
         const deltaX = e.clientX - resizeStart.current.x
         const deltaY = e.clientY - resizeStart.current.y
         const minWidth = 300
         const minHeight = 200
-        
+
         let newWidth = resizeStart.current.width
         let newHeight = resizeStart.current.height
         let newX = resizeStart.current.posX
         let newY = resizeStart.current.posY
-        
+
         // Handle horizontal resize
         if (resizeDirection.includes('e')) {
           newWidth = Math.max(minWidth, resizeStart.current.width + deltaX)
@@ -85,7 +87,7 @@ function Window({
             newX = resizeStart.current.posX + deltaX
           }
         }
-        
+
         // Handle vertical resize
         if (resizeDirection.includes('s')) {
           newHeight = Math.max(minHeight, resizeStart.current.height + deltaY)
@@ -97,7 +99,7 @@ function Window({
             newY = resizeStart.current.posY + deltaY
           }
         }
-        
+
         setSize({ width: newWidth, height: newHeight })
         setPosition({ x: newX, y: newY })
       }
@@ -153,9 +155,11 @@ function Window({
 
   return (
     <div
-      className={`fixed bg-slate-900 border border-slate-700 overflow-hidden shadow-2xl window-appear ${
-        isMobile ? 'rounded-none' : 'rounded-lg'
-      }`}
+      className={`fixed border overflow-hidden shadow-2xl window-appear transition-colors duration-300 ${isMobile ? 'rounded-none' : 'rounded-lg'
+        } ${theme === 'light'
+          ? 'bg-white border-slate-300'
+          : 'bg-slate-900 border-slate-700'
+        }`}
       style={windowStyle}
       onClick={() => onFocus(id)}
     >
@@ -163,37 +167,37 @@ function Window({
       {!isMaximized && !isMobile && (
         <>
           {/* Edges */}
-          <div 
+          <div
             className={`${resizeHandleClass} top-0 left-2 right-2 h-1 cursor-n-resize`}
             onMouseDown={(e) => handleResizeStart(e, 'n')}
           />
-          <div 
+          <div
             className={`${resizeHandleClass} bottom-0 left-2 right-2 h-1 cursor-s-resize`}
             onMouseDown={(e) => handleResizeStart(e, 's')}
           />
-          <div 
+          <div
             className={`${resizeHandleClass} left-0 top-2 bottom-2 w-1 cursor-w-resize`}
             onMouseDown={(e) => handleResizeStart(e, 'w')}
           />
-          <div 
+          <div
             className={`${resizeHandleClass} right-0 top-2 bottom-2 w-1 cursor-e-resize`}
             onMouseDown={(e) => handleResizeStart(e, 'e')}
           />
-          
+
           {/* Corners */}
-          <div 
+          <div
             className={`${resizeHandleClass} top-0 left-0 w-3 h-3 cursor-nw-resize`}
             onMouseDown={(e) => handleResizeStart(e, 'nw')}
           />
-          <div 
+          <div
             className={`${resizeHandleClass} top-0 right-0 w-3 h-3 cursor-ne-resize`}
             onMouseDown={(e) => handleResizeStart(e, 'ne')}
           />
-          <div 
+          <div
             className={`${resizeHandleClass} bottom-0 left-0 w-3 h-3 cursor-sw-resize`}
             onMouseDown={(e) => handleResizeStart(e, 'sw')}
           />
-          <div 
+          <div
             className={`${resizeHandleClass} bottom-0 right-0 w-3 h-3 cursor-se-resize`}
             onMouseDown={(e) => handleResizeStart(e, 'se')}
           />
@@ -202,12 +206,15 @@ function Window({
 
       {/* Title Bar */}
       <div
-        className={`h-10 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4 select-none ${
-          isMobile ? '' : 'cursor-move'
-        }`}
+        className={`h-10 border-b flex items-center justify-between px-4 select-none transition-colors duration-300 ${isMobile ? '' : 'cursor-move'
+          } ${theme === 'light'
+            ? 'bg-slate-100 border-slate-200'
+            : 'bg-slate-800 border-slate-700'
+          }`}
         onMouseDown={isMobile ? undefined : handleMouseDown}
       >
-        <span className="text-slate-400 font-mono text-sm truncate flex-1">{title}</span>
+        <span className={`font-mono text-sm truncate flex-1 ${theme === 'light' ? 'text-slate-700' : 'text-slate-400'
+          }`}>{title}</span>
         <div className="flex items-center gap-2 ml-2">
           {/* Hide maximize button on mobile */}
           {!isMobile && (

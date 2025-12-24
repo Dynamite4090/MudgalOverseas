@@ -104,11 +104,10 @@ function TalkToHuman() {
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className={`flex items-center gap-2 px-4 py-2 border rounded font-mono text-sm transition-colors ${
-            isSubmitting 
+          className={`flex items-center gap-2 px-4 py-2 border rounded font-mono text-sm transition-colors ${isSubmitting
               ? 'bg-slate-700 border-slate-600 text-slate-400 cursor-not-allowed'
               : 'bg-accent-yellow/20 hover:bg-accent-yellow/30 border-accent-yellow/50 text-accent-yellow'
-          }`}
+            }`}
         >
           <SendIcon className="w-4 h-4" />
           {isSubmitting ? 'Sending...' : 'Send'}
@@ -123,7 +122,7 @@ function TalkToHuman() {
               <div className="text-4xl mb-4">✉️</div>
               <p className="text-accent-green font-mono">Message sent successfully!</p>
               <p className="text-slate-500 text-sm mt-2">We'll get back to you soon.</p>
-              <button 
+              <button
                 onClick={() => setSubmitted(false)}
                 className="mt-4 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded text-sm text-slate-300 transition-colors"
               >
@@ -142,7 +141,7 @@ function TalkToHuman() {
             {/* To Field */}
             <div className="flex items-center gap-4">
               <label className="text-slate-400 font-mono text-sm w-32 shrink-0">To</label>
-              <span className="text-slate-300">contact@mudgaloverseas.dev</span>
+              <span className="text-slate-300">contact@mudgaloverseas.com</span>
             </div>
 
             {/* Email Field */}
@@ -212,7 +211,7 @@ function TalkToHuman() {
             {/* Heard From Field */}
             <div className="flex items-center gap-4">
               <label className="text-slate-400 font-mono text-sm w-32 shrink-0">
-                Where did you<br/>hear about us?
+                Where did you<br />hear about us?
               </label>
               <input
                 type="text"

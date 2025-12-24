@@ -25,7 +25,7 @@ function SimpleDesk({ position, monitorColor = '#7aa2f7' }) {
         <boxGeometry args={[0.8, 0.04, 0.5]} />
         <meshStandardMaterial color="#5c4d3d" />
       </mesh>
-      
+
       {/* Desk Legs */}
       {[[-0.35, -0.25, -0.2], [0.35, -0.25, -0.2], [-0.35, -0.25, 0.2], [0.35, -0.25, 0.2]].map((pos, i) => (
         <mesh key={i} position={pos}>
@@ -33,7 +33,7 @@ function SimpleDesk({ position, monitorColor = '#7aa2f7' }) {
           <meshStandardMaterial color="#3d3d3d" />
         </mesh>
       ))}
-      
+
       {/* Monitor */}
       <group position={[0, 0.25, -0.1]}>
         <mesh>
@@ -88,7 +88,7 @@ function SimpleChair({ position }) {
  */
 function SimpleCharacter({ position, type = 'cat', facingDesk = true }) {
   const meshRef = useRef()
-  
+
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 1.5) * 0.01
@@ -111,13 +111,13 @@ function SimpleCharacter({ position, type = 'cat', facingDesk = true }) {
         <sphereGeometry args={[0.1, 12, 12]} />
         <meshStandardMaterial color={c.body} />
       </mesh>
-      
+
       {/* Head */}
       <mesh position={[0, 0.14, 0.02]}>
         <sphereGeometry args={[0.08, 12, 12]} />
         <meshStandardMaterial color={c.body} />
       </mesh>
-      
+
       {/* Ears */}
       {type !== 'panda' && (
         <>
@@ -131,7 +131,7 @@ function SimpleCharacter({ position, type = 'cat', facingDesk = true }) {
           </mesh>
         </>
       )}
-      
+
       {/* Panda ears */}
       {type === 'panda' && (
         <>
@@ -145,7 +145,7 @@ function SimpleCharacter({ position, type = 'cat', facingDesk = true }) {
           </mesh>
         </>
       )}
-      
+
       {/* Eyes */}
       <mesh position={[-0.025, 0.16, 0.07]}>
         <sphereGeometry args={[0.012, 6, 6]} />
@@ -164,7 +164,7 @@ function SimpleCharacter({ position, type = 'cat', facingDesk = true }) {
  */
 function ChristmasTree({ position, scale = 1 }) {
   const lightsRef = useRef()
-  
+
   useFrame((state) => {
     if (lightsRef.current) {
       lightsRef.current.children.forEach((light, i) => {
@@ -172,7 +172,7 @@ function ChristmasTree({ position, scale = 1 }) {
       })
     }
   })
-  
+
   return (
     <group position={position} scale={scale}>
       {/* Trunk */}
@@ -180,7 +180,7 @@ function ChristmasTree({ position, scale = 1 }) {
         <cylinderGeometry args={[0.1, 0.12, 0.3, 6]} />
         <meshStandardMaterial color="#5c3d2e" />
       </mesh>
-      
+
       {/* Tree layers */}
       <mesh position={[0, 0.5, 0]}>
         <coneGeometry args={[0.5, 0.7, 6]} />
@@ -194,13 +194,13 @@ function ChristmasTree({ position, scale = 1 }) {
         <coneGeometry args={[0.25, 0.5, 6]} />
         <meshStandardMaterial color="#247a42" />
       </mesh>
-      
+
       {/* Star */}
       <mesh position={[0, 1.6, 0]} rotation={[0, 0, Math.PI / 4]}>
         <octahedronGeometry args={[0.1]} />
         <meshStandardMaterial color="#ffd700" emissive="#ffd700" emissiveIntensity={0.8} />
       </mesh>
-      
+
       {/* Lights */}
       <group ref={lightsRef}>
         {[
@@ -247,7 +247,7 @@ function GiftBox({ position, color = '#ff0000', ribbonColor = '#ffd700', scale =
  */
 function Snowflakes({ count = 60 }) {
   const ref = useRef()
-  
+
   const particles = useMemo(() => {
     const temp = []
     for (let i = 0; i < count; i++) {
@@ -270,7 +270,7 @@ function Snowflakes({ count = 60 }) {
         const p = particles[i]
         child.position.y -= p.speed * 0.015
         child.position.x += Math.sin(state.clock.elapsedTime * 0.5 + p.offset) * 0.002
-        
+
         if (child.position.y < -1.5) {
           child.position.y = 5
           child.position.x = (Math.random() - 0.5) * 12
@@ -285,6 +285,50 @@ function Snowflakes({ count = 60 }) {
         <mesh key={i} position={p.position}>
           <sphereGeometry args={[0.02, 4, 4]} />
           <meshBasicMaterial color="#ffffff" transparent opacity={0.9} />
+        </mesh>
+      ))}
+    </group>
+  )
+}
+
+/**
+ * Twinkling Stars
+ */
+function Stars({ count = 100 }) {
+  const ref = useRef()
+
+  const stars = useMemo(() => {
+    const temp = []
+    for (let i = 0; i < count; i++) {
+      temp.push({
+        position: [
+          (Math.random() - 0.5) * 20,
+          Math.random() * 8 + 1,
+          (Math.random() - 0.5) * 15 - 5
+        ],
+        size: 0.01 + Math.random() * 0.02,
+        twinkleSpeed: 1 + Math.random() * 2,
+        twinkleOffset: Math.random() * Math.PI * 2,
+      })
+    }
+    return temp
+  }, [count])
+
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.children.forEach((child, i) => {
+        const star = stars[i]
+        child.material.opacity = 0.5 + Math.sin(state.clock.elapsedTime * star.twinkleSpeed + star.twinkleOffset) * 0.4
+      })
+    }
+  })
+
+  return (
+    <group ref={ref}>
+      {stars.map((star, i) => (
+        <mesh key={i} position={star.position}>
+          <sphereGeometry args={[star.size, 4, 4]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.8} />
         </mesh>
       ))}
     </group>
@@ -307,27 +351,30 @@ function Scene() {
     <group ref={groupRef}>
       {/* Floor */}
       <Floor />
-      
+
       {/* Christmas Tree */}
       <ChristmasTree position={[0, -1.5, -2]} scale={0.9} />
-      
+
       {/* Gifts under tree */}
       <GiftBox position={[-0.4, -1.42, -1.6]} color="#ff0000" ribbonColor="#ffd700" scale={0.8} />
       <GiftBox position={[0.3, -1.42, -1.5]} color="#4444ff" ribbonColor="#ffffff" scale={0.7} />
       <GiftBox position={[0, -1.42, -1.3]} color="#00aa00" ribbonColor="#ff0000" scale={0.6} />
-      
+
       {/* Desk with character - left */}
       <SimpleDesk position={[-1.5, -1, -1]} monitorColor="#7aa2f7" />
       <SimpleChair position={[-1.5, -1.15, -0.5]} />
       <SimpleCharacter position={[-1.5, -0.85, -0.5]} type="cat" />
-      
+
       {/* Desk with character - right */}
       <SimpleDesk position={[1.5, -1, -1]} monitorColor="#ff9e64" />
       <SimpleChair position={[1.5, -1.15, -0.5]} />
       <SimpleCharacter position={[1.5, -0.85, -0.5]} type="panda" />
-      
+
       {/* Snowflakes */}
       <Snowflakes count={50} />
+
+      {/* Stars in the sky */}
+      <Stars count={80} />
     </group>
   )
 }
@@ -341,7 +388,7 @@ function MobileBackground3D() {
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0.5, 4], fov: 50 }}
-        gl={{ 
+        gl={{
           antialias: false,
           alpha: true,
           powerPreference: 'low-power',
@@ -353,10 +400,10 @@ function MobileBackground3D() {
         <ambientLight intensity={0.6} />
         <pointLight position={[5, 5, 5]} intensity={0.5} color="#ffffff" />
         <pointLight position={[-3, 3, 2]} intensity={0.3} color="#ff9e64" />
-        
+
         {/* Fog */}
         <fog attach="fog" args={['#0f172a', 4, 12]} />
-        
+
         <Scene />
       </Canvas>
     </div>
