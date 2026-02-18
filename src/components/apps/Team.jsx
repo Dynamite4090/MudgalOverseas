@@ -35,28 +35,7 @@ const TEAM_MEMBERS = [
       github: 'https://github.com/Shanu1010mudgal',
     }
   },
-  {
-    name: 'Sujal Pachpande',
-    role: 'Intern Indie Game Developer',
-    image: '/images/team/sujal.png',
-    color: 'accent-blue',
-    description: 'Talented developer with a knack for gameplay mechanics. Brings fresh ideas and energy to every project.',
-    social: {
-      linkedin: 'https://www.linkedin.com/in/sujal-pachpande-609735218/',
-      github: 'https://github.com/Sujal1s',
-    }
-  },
-  {
-    name: 'Brijesh Malaviya',
-    role: 'Intern Indie Game Developer',
-    image: '/images/team/brijesh.png',
-    color: 'accent-purple',
-    description: 'Creative problem solver specializing in game systems. Always exploring new ways to make games more engaging.',
-    social: {
-      linkedin: '',
-      github: '',
-    }
-  },
+
   {
     name: 'Ganesh Chavan',
     role: 'Game Programmer',
