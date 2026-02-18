@@ -47,17 +47,7 @@ const TEAM_MEMBERS = [
       github: 'https://github.com/Dynamite4090',
     }
   },
-  {
-    name: 'Siddhant Shirgave',
-    role: 'Game Designer',
-    image: '/images/team/siddhant.png',
-    color: 'accent-red',
-    description: 'Creative game designer crafting engaging gameplay experiences. Expert in level design and game mechanics that keep players hooked.',
-    social: {
-      linkedin: '',
-      github: '',
-    }
-  },
+  
 ]
 
 /**
