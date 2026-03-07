@@ -47,6 +47,18 @@ const TEAM_MEMBERS = [
       github: 'https://github.com/Dynamite4090',
     }
   },
+
+  {
+    name: 'Hitanshu Patnaik',
+    role: 'Sound Designer',
+    image: '/images/team/hitanshu.png', 
+    color: 'accent-green', 
+    description: 'Ex-Nat Geo sound specialist bringing cinematic audio experiences to indie games. Expert in immersive soundscapes and audio implementation.',
+    social: {
+      linkedin: '', 
+      github: '',  
+    }
+  },
   
 ]
 
