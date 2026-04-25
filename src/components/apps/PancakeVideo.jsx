@@ -3,6 +3,8 @@
  * Embedded YouTube video player
  */
 function PancakeVideo() {
+  const videoId = '0j_-YrIwKpA'
+
   return (
     <div className="h-full bg-black flex flex-col">
       {/* Video Header */}
@@ -11,18 +13,22 @@ function PancakeVideo() {
           <span className="text-slate-400 font-mono text-sm">pancake.mov</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-accent-red rec-blink" />
-          <span className="text-accent-red font-mono text-xs">LIVE</span>
+          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          <span className="text-red-500 font-mono text-xs">LIVE</span>
         </div>
       </div>
 
-      {/* Video Placeholder */}
-      <div className="flex-1 relative flex items-center justify-center bg-slate-900">
-        <div className="text-center">
-          <div className="text-6xl mb-4">🥞</div>
-          <p className="text-slate-400 font-mono text-lg">Coming Soon</p>
-          <p className="text-slate-600 font-mono text-sm mt-2">Video under production</p>
-        </div>
+      {/* YouTube Embed */}
+      <div className="flex-1 relative bg-slate-900">
+        <iframe
+          className="absolute top-0 left-0 w-full h-full"
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title="Pancake Game Trailer"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
       </div>
 
       {/* Footer */}
