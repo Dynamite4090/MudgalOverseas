@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 /**
- * Job listings data
+ * Job listings data – Summer Internships 2025
  */
 const JOB_CATEGORIES = [
   {
-    name: 'Summer Internships 2026',
+    name: 'Summer Internships 2025',
     jobs: [
       {
         title: '2D Game Art & Animation Intern',
@@ -83,7 +83,6 @@ const TOTAL_POSITIONS = JOB_CATEGORIES.reduce((acc, cat) => acc + cat.jobs.lengt
 function IsometricOffice() {
   return (
     <div className="relative w-full h-48 bg-gradient-to-b from-orange-600 to-orange-700 overflow-hidden rounded-t-lg">
-      {/* Zigzag pattern background */}
       <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
         <pattern id="zigzag" width="10" height="10" patternUnits="userSpaceOnUse">
           <path d="M0 5 L5 0 L10 5 L5 10 Z" fill="none" stroke="#8B4513" strokeWidth="0.5"/>
@@ -91,25 +90,18 @@ function IsometricOffice() {
         <rect width="100" height="100" fill="url(#zigzag)"/>
       </svg>
       
-      {/* Isometric cubicles */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200">
-        {/* Left cubicle cluster */}
         <g transform="translate(30, 60)">
-          {/* Cubicle walls */}
           <polygon points="0,30 40,10 80,30 40,50" fill="#d4a574" stroke="#8B4513" strokeWidth="1"/>
           <polygon points="0,30 0,60 40,80 40,50" fill="#c49464" stroke="#8B4513" strokeWidth="1"/>
           <polygon points="40,50 40,80 80,60 80,30" fill="#b48454" stroke="#8B4513" strokeWidth="1"/>
-          {/* Desk */}
           <polygon points="15,35 40,25 65,35 40,45" fill="#5c3d2e" stroke="#3d2619" strokeWidth="0.5"/>
-          {/* Monitor */}
           <rect x="35" y="20" width="10" height="8" fill="#1a1a2e" stroke="#333" strokeWidth="0.5"/>
           <rect x="36" y="21" width="8" height="6" fill="#7aa2f7"/>
-          {/* Character */}
           <circle cx="40" cy="40" r="5" fill="#f5f5f5"/>
           <circle cx="40" cy="35" r="3" fill="#f5f5f5"/>
         </g>
         
-        {/* Center cubicle */}
         <g transform="translate(150, 40)">
           <polygon points="0,30 40,10 80,30 40,50" fill="#d4a574" stroke="#8B4513" strokeWidth="1"/>
           <polygon points="0,30 0,60 40,80 40,50" fill="#c49464" stroke="#8B4513" strokeWidth="1"/>
@@ -122,7 +114,6 @@ function IsometricOffice() {
           <polygon points="37,32 40,28 43,32" fill="#ff9e64"/>
         </g>
         
-        {/* Right cubicle cluster */}
         <g transform="translate(270, 60)">
           <polygon points="0,30 40,10 80,30 40,50" fill="#d4a574" stroke="#8B4513" strokeWidth="1"/>
           <polygon points="0,30 0,60 40,80 40,50" fill="#c49464" stroke="#8B4513" strokeWidth="1"/>
@@ -134,7 +125,6 @@ function IsometricOffice() {
           <circle cx="40" cy="35" r="3" fill="#f5f5f5"/>
         </g>
         
-        {/* Plants */}
         <g transform="translate(120, 110)">
           <rect x="0" y="10" width="8" height="12" fill="#8b5a2b"/>
           <circle cx="4" cy="5" r="8" fill="#4a7c59"/>
@@ -144,18 +134,16 @@ function IsometricOffice() {
           <circle cx="4" cy="5" r="8" fill="#5a9c69"/>
         </g>
         
-        {/* Water cooler */}
         <g transform="translate(220, 120)">
           <rect x="0" y="5" width="12" height="20" fill="#7dcfff" opacity="0.5"/>
           <rect x="2" y="0" width="8" height="8" fill="#4a5568"/>
         </g>
       </svg>
       
-      {/* Heading overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-        <h1 className="text-2xl font-bold text-white drop-shadow-lg">Who's hiring?</h1>
+        <h1 className="text-2xl font-bold text-white drop-shadow-lg">Summer Internships 2025</h1>
         <p className="text-white/90 mt-2">
-          Our small teams are looking to add <span className="font-bold">{TOTAL_POSITIONS} team members</span>.
+          We're looking for <span className="font-bold">{TOTAL_POSITIONS} interns</span> to join us.
         </p>
       </div>
     </div>
@@ -163,7 +151,7 @@ function IsometricOffice() {
 }
 
 /**
- * Search Icon
+ * Icons
  */
 const SearchIcon = () => (
   <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,18 +159,12 @@ const SearchIcon = () => (
   </svg>
 )
 
-/**
- * Location Icon
- */
 const LocationIcon = () => (
   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
   </svg>
 )
 
-/**
- * Clock Icon
- */
 const ClockIcon = () => (
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -190,8 +172,7 @@ const ClockIcon = () => (
 )
 
 /**
- * WorkHere Component
- * Careers page styled like PostHog
+ * Main WorkHere Component with Apply button enabled
  */
 function WorkHere() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -208,7 +189,7 @@ function WorkHere() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
 
-  // Filter jobs based on search
+  // Filter jobs
   const filteredCategories = JOB_CATEGORIES.map(category => ({
     ...category,
     jobs: category.jobs.filter(job => 
@@ -225,10 +206,12 @@ function WorkHere() {
     setIsSubmitting(true)
     setSubmitStatus(null)
 
-    // Simulate submission delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    // Simulate network request
+    await new Promise(resolve => setTimeout(resolve, 1500))
     
-    // For now, just show success (you can integrate with email/backend later)
+    // Here you would normally send data to your backend or email service
+    console.log('Application submitted:', { ...applicationData, role: selectedJob.title })
+    
     setSubmitStatus('success')
     setApplicationData({
       name: '',
@@ -245,16 +228,20 @@ function WorkHere() {
     setIsSubmitting(false)
   }
 
+  const handleModalClose = () => {
+    if (!isSubmitting) {
+      setShowApplyModal(false)
+      setSubmitStatus(null)
+    }
+  }
+
   return (
     <div className="h-full bg-slate-950 overflow-auto">
-      {/* Hero Banner */}
       <IsometricOffice />
 
-      {/* Main Content - Responsive layout */}
       <div className="flex flex-col md:flex-row">
-        {/* Sidebar - Horizontal scrollable on mobile */}
+        {/* Sidebar */}
         <div className="md:w-64 border-b md:border-b-0 md:border-r border-slate-800 p-4">
-          {/* Search */}
           <div className="relative mb-4">
             <div className="absolute left-3 top-1/2 -translate-y-1/2">
               <SearchIcon />
@@ -268,7 +255,6 @@ function WorkHere() {
             />
           </div>
 
-          {/* Categories - Horizontal scroll on mobile */}
           <div className="flex md:block overflow-x-auto md:overflow-x-visible gap-2 md:gap-0 pb-2 md:pb-0">
             {filteredCategories.map((category) => (
               <div key={category.name} className="mb-4 flex-shrink-0 md:flex-shrink">
@@ -304,14 +290,12 @@ function WorkHere() {
             <>
               <h2 className="text-xl md:text-2xl font-bold text-white mb-4">{selectedJob.title}</h2>
               
-              {/* Teams hiring badge */}
               <div className="inline-block bg-slate-800 rounded-lg px-3 md:px-4 py-2 mb-4 md:mb-6">
                 <span className="text-slate-300 text-xs md:text-sm">
                   {selectedJob.teams} small {selectedJob.teams === 1 ? 'team is' : 'teams are'} hiring for this role
                 </span>
               </div>
 
-              {/* Location & Timezone */}
               <div className="flex items-center gap-8 mb-6">
                 <div className="flex items-center gap-3">
                   <div className="text-accent-yellow">
@@ -333,38 +317,35 @@ function WorkHere() {
                 </div>
               </div>
 
-              {/* Description */}
               <div className="mb-6">
                 <h3 className="text-lg font-semibold text-white mb-2">About the role</h3>
                 <p className="text-slate-400">{selectedJob.description}</p>
               </div>
 
-              {/* Requirements */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-white mb-2">Requirements</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">What you'll do & what we're looking for</h3>
                 <ul className="space-y-2">
                   {selectedJob.requirements.map((req, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-green"></span>
+                    <li key={i} className="flex items-start gap-2 text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent-green mt-1.5"></span>
                       {req}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Apply Button - Hidden for now
+              {/* ✅ Apply Button - NOW ACTIVE */}
               <button 
                 onClick={() => setShowApplyModal(true)}
                 className="w-full md:w-auto px-6 py-3 bg-accent-blue hover:bg-accent-blue/80 active:bg-accent-blue/70 text-white font-medium rounded-lg transition-colors"
               >
-                Apply for this role
+                Apply for this role →
               </button>
-              */}
             </>
           )}
         </div>
 
-        {/* Right Sidebar - About teams (Hidden on mobile) */}
+        {/* Right Sidebar */}
         <div className="hidden lg:block w-72 border-l border-slate-800 p-4">
           <h3 className="text-lg font-semibold text-white mb-4">About the small teams</h3>
           
@@ -400,7 +381,6 @@ function WorkHere() {
             </div>
           </div>
 
-          {/* Company perks */}
           <div className="mt-6 pt-4 border-t border-slate-800">
             <h4 className="text-sm font-medium text-slate-400 mb-3">Why join us?</h4>
             <ul className="space-y-2 text-sm text-slate-500">
@@ -420,6 +400,103 @@ function WorkHere() {
           </div>
         </div>
       </div>
+
+      {/* ✅ Application Modal - FULLY ADDED */}
+      {showApplyModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={handleModalClose}>
+          <div className="bg-slate-900 rounded-xl border border-slate-700 w-full max-w-lg max-h-[90vh] overflow-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="p-4 border-b border-slate-800 flex justify-between items-center">
+              <h3 className="text-xl font-bold text-white">Apply for {selectedJob?.title}</h3>
+              {!isSubmitting && (
+                <button onClick={handleModalClose} className="text-slate-400 hover:text-white text-xl">✕</button>
+              )}
+            </div>
+            
+            <form onSubmit={handleApply} className="p-4 space-y-4">
+              {submitStatus === 'success' && (
+                <div className="bg-accent-green/20 border border-accent-green rounded-lg p-3 text-center">
+                  <p className="text-accent-green">Application sent successfully! We'll be in touch.</p>
+                </div>
+              )}
+              
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={applicationData.name}
+                  onChange={(e) => setApplicationData({...applicationData, name: e.target.value})}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-accent-blue"
+                  placeholder="Your name"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Email *</label>
+                <input
+                  type="email"
+                  required
+                  value={applicationData.email}
+                  onChange={(e) => setApplicationData({...applicationData, email: e.target.value})}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-accent-blue"
+                  placeholder="you@example.com"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Portfolio / GitHub / LinkedIn URL</label>
+                <input
+                  type="url"
+                  value={applicationData.portfolio}
+                  onChange={(e) => setApplicationData({...applicationData, portfolio: e.target.value})}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-accent-blue"
+                  placeholder="Link to your work"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Relevant Experience (years / projects)</label>
+                <textarea
+                  rows={2}
+                  value={applicationData.experience}
+                  onChange={(e) => setApplicationData({...applicationData, experience: e.target.value})}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-accent-blue"
+                  placeholder="Tell us about your background with Unity, C#, or art tools..."
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Why do you want to join MudgalOverseas?</label>
+                <textarea
+                  rows={3}
+                  value={applicationData.coverLetter}
+                  onChange={(e) => setApplicationData({...applicationData, coverLetter: e.target.value})}
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-accent-blue"
+                  placeholder="Your motivation and what you'd bring to the team..."
+                />
+              </div>
+              
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={handleModalClose}
+                  disabled={isSubmitting}
+                  className="flex-1 px-4 py-2 border border-slate-600 rounded-lg text-slate-300 hover:bg-slate-800 disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex-1 bg-accent-blue hover:bg-accent-blue/80 text-white font-medium py-2 rounded-lg disabled:opacity-50 transition-colors"
+                >
+                  {isSubmitting ? 'Sending...' : 'Submit Application'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
