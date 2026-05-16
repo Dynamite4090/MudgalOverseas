@@ -5,90 +5,75 @@ import { useState } from 'react'
  */
 const JOB_CATEGORIES = [
   {
-    name: 'Game Development',
+    name: 'Summer Internships 2026',
     jobs: [
-      { 
-        title: 'Game Programmer', 
-        teams: 2,
-        location: 'Remote',
-        timezone: 'IST',
-        description: 'Implement 2D gameplay mechanics, game states & UI interactions in Unity. Work closely with designers and artists to integrate assets & features. Write optimized, reusable, readable C# scripts. Troubleshoot bugs, performance issues & mobile deployment problems. Contribute to rapid prototypes and release-ready builds.',
-        requirements: [
-          'Strong C# fundamentals + Unity API',
-          'Understanding of physics, collisions, events, UI, and animation controllers',
-          'Movement + input controls (tap / drag / swipe)',
-          'Collision & trigger handling, Physics2D & Rigidbody2D',
-          'Animation Controller & basic VFX scripting',
-          'Game states (Start → Play → Win/Lose → Restart)',
-          'Score, collectibles, power-ups & simple economy',
-          'Endless generation and difficulty scaling',
-          'Object pooling (very important)',
-          'Mobile optimization, low physics overhead',
-          'Modular scripts and reusable components',
-          'Prefabs & Scriptable Objects for configuration',
-          'Version control basics (Git/GitHub)',
-          'UI + Gameplay linking (buttons, events)',
-          'Audio triggers and feedback elements',
-          'Quick prototyping mindset',
-          '"Satisfying feel" — juice, feedback, polish',
-          'Understanding of hyper-casual loops and player retention'
-        ]
-      },
-    ]
-  },
-  {
-    name: 'Design',
-    jobs: [
-      { 
-        title: 'Game Designer', 
+      {
+        title: '2D Game Art & Animation Intern',
         teams: 1,
         location: 'Remote',
         timezone: 'IST',
-        description: 'Design hyper-casual game concepts, mechanics, and progression systems. Create Game Design Documents (GDD), flowcharts, user journeys & feature lists. Work with programmers, artists and level designers to ensure design execution. Analyze hyper-casual market trends and deconstruct hit titles. Balance difficulty, in-game economy, pacing and user retention.',
+        description: 'Join us this summer to help bring our 2D worlds to life! As a 2D Game Art Intern, you will get hands-on experience designing vibrant sprites, backgrounds, and animations. You will learn how art transitions from the drawing board directly into the Unity engine, gaining valuable insight into the indie game art pipeline.',
         requirements: [
-          'Strong understanding of 2D/3D games (Hyper-Casual preferred)',
-          'Understanding of hyper-casual gameplay loops & feedback systems',
-          'Knowledge of Unity to validate gameplay ideas (basic prototyping preferred)',
-          'Analytical mindset for player behaviour & economy balancing',
-          'Good documentation skills (GDD, spreadsheets, diagrams)'
+          'Familiarity with 2D digital art software (e.g., Photoshop, Aseprite, Illustrator, or Procreate)',
+          'A portfolio showcasing 2D illustrations, pixel art, or animations',
+          'Basic familiarity with the Unity Editor is a plus, but a strong desire to learn is required',
+          'Create 2D assets including characters, environments, and UI elements',
+          'Develop sprite sheets and frame-by-frame or skeletal animations',
+          'Import and configure artwork within Unity, working with the Sprite Editor and Animator',
+          'Collaborate with the team to ensure the art style remains consistent and game-ready'
         ]
       },
-    ]
-  },
-  {
-    name: 'Art & Design',
-    jobs: [
-      { 
-        title: '2D Artist / Level Designer', 
+      {
+        title: 'Unity 2D Level Design Intern',
         teams: 1,
         location: 'Remote',
         timezone: 'IST',
-        description: 'Build engaging, challenging and scalable 2D hyper-casual levels. Balance pacing, timing, obstacles and difficulty curves. Work closely with designers & programmers to validate level flow. Perform play-tests & iterate based on feedback. Create levels that encourage retention and replay value.',
+        description: 'Spend your summer building the playgrounds where our players will jump, dash, and explore. As a 2D Level Design Intern, you will learn how to craft engaging levels using Unity’s 2D toolset. You will focus on player flow, obstacle placement, and environmental storytelling to create memorable gameplay experiences.',
         requirements: [
-          'Portfolio of 2D game levels (mandatory)',
-          'Understanding of pacing, challenge balance, difficulty curve',
-          'Strong sense of spatial layout, timing and visual readability',
-          'Knowledge of Unity tilemaps, colliders & prefabs',
-          'Understanding of player psychology and challenge-reward loop'
+          'Basic understanding of the Unity Editor and navigating 2D scenes',
+          'A strong passion for 2D game genres (platformers, puzzles, RPGs) and an understanding of what makes their levels fun',
+          'Any personal projects or game jam games showcasing level design are a major bonus',
+          'Design and assemble 2D levels using Unity’s Tilemap system',
+          'Block out initial level concepts (grayboxing) and iterate based on playtest feedback',
+          'Set up 2D colliders, trigger zones, and spawn points within the scenes',
+          'Work with the programming and art teams to integrate mechanics and visual assets seamlessly'
         ]
       },
-      { 
-        title: 'UI/UX Designer', 
+      {
+        title: 'Unity 2D Programming Intern',
         teams: 1,
         location: 'Remote',
         timezone: 'IST',
-        description: 'Design complete UI layout for hyper-casual games — menus, HUD, victory/defeat screens. Create wireframes, mockups, assets and UI states for mobile devices. Ensure smooth UX with intuitive flow and clear feedback cues. Export UI for Unity & collaborate with programmers for implementation. Maintain consistency in style, color palette and typography.',
+        description: 'Dive into the code that makes games tick! As a Unity 2D Programming Intern, you will write C# scripts to bring gameplay mechanics to life. This summer role is perfect for a coder looking to gain practical experience with Unity\'s 2D physics, UI scripting, and player controllers in a real-world development environment.',
         requirements: [
-          'Portfolio required (Non-AI artwork only)',
-          'Ability to design intuitive and polished game screens',
-          'Figma / Photoshop / Illustrator / Adobe XD / Krita',
-          'Knowledge of UI for mobile resolutions & touch interactions',
-          'Understanding of Unity canvas system is a plus'
+          'Solid foundational knowledge of C# or a similar object-oriented programming language',
+          'Prior exposure to Unity (school projects, self-taught tutorials, or game jams)',
+          'A logical mindset with good problem-solving and debugging skills',
+          'Write and debug clean C# code for 2D gameplay systems (e.g., movement, combat, inventory)',
+          'Work extensively with Unity components like Rigidbody2D, BoxCollider2D, and the new Input System',
+          'Assist in optimizing game performance and squashing bugs',
+          'Prototype small, experimental 2D mechanics to test new ideas'
         ]
       },
+      {
+        title: '2D Game Design & Narrative Intern',
+        teams: 1,
+        location: 'Remote',
+        timezone: 'IST',
+        description: 'Help us craft the mechanics and stories that keep players hooked. As a Game Design & Narrative Intern, you will spend your summer balancing game variables, writing dialogue, and documenting features. You will learn how to merge storytelling with 2D gameplay to create a cohesive and engaging player journey.',
+        requirements: [
+          'Strong creative writing and clear technical communication skills',
+          'A deep appreciation for narrative-driven or mechanic-heavy 2D games',
+          'Detail-oriented mindset with an interest in game balancing and player psychology',
+          'Assist in writing in-game text, character dialogue, and lore',
+          'Help maintain and update Game Design Documents (GDD) for the team',
+          'Playtest internal builds to balance difficulty, tweak variables, and provide actionable feedback',
+          'Design and document new 2D puzzles, quests, or gameplay loops'
+        ]
+      }
     ]
-  },
-]
+  }
+];
 
 const TOTAL_POSITIONS = JOB_CATEGORIES.reduce((acc, cat) => acc + cat.jobs.length, 0)
 
